@@ -25,7 +25,7 @@ $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
 # Derived Variables
-$SetupISOImagePath = "$SqlSetupInventoryPath\2014\$SqlEdition\SqlServer_2014_$SqlEdition.ISO";
+$SetupISOImagePath = "$SqlSetupInventoryPath\$pSqlVersion\$SqlEdition\SqlServer_$($pSqlVersion)_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -35,15 +35,6 @@ $pSqlDataDirectory = '"' + $SqlDataDirectory + '"';
 $pSqlBackupDirectory = '"' + $SqlBackupDirectory + '"';
 $pSqlTempDbDirectory = '"' + $SqlTempDbDirectory + '"';
 $pSqlLogDirectory = '"' + $SqlLogDirectory + '"';
-if ($SqlEdition -eq 'Standard') {
-  $productKey = 'P7FRV-Y6X6Y-Y8C6Q-TB4QR-DMTTK';
-}
-elseif ($SqlEdition -eq 'Developer') {
-  $productKey = '82YJF-9RP6B-YQV9M-VXQFR-YJBGX';
-}
-elseif ($SqlEdition -eq 'Enterprise') {
-  $productKey = '27HMJ-GH7P9-X2TTB-WPHQC-RG79R';
-}
 
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';

@@ -26,7 +26,7 @@ $pSqlSAPassword = 'Pa$$w0rd'
 
 
 # Derived Variables
-$SetupISOImagePath = "$SqlSetupInventoryPath\2016\$SqlEdition\SqlServer_2016_$SqlEdition.ISO";
+$SetupISOImagePath = "$SqlSetupInventoryPath\$pSqlVersion\$SqlEdition\SqlServer_$($pSqlVersion)_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';

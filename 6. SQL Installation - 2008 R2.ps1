@@ -1,7 +1,18 @@
-﻿# Input Variables
-$SetupISOImagePath = 'G:\MICROSOFT_SQL_SERVER_2014_ENTERPRISE_EDITION_X64-DVTiSO[rarbg]\d-351mse.iso';
-$SqlEdition = 'Enterprise';
-$pInstanceName = 'SQL2014';
+﻿# ***************************************************************************************
+# Unattended Installation of SQL Server 2008R2
+# History:- Developer = Not Tested
+#           Enterprise = Not Tested
+#           Standard = Not Tested
+# ***************************************************************************************
+
+# Input Variables
+$SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
+$pSqlVersion = '2008R2'
+$SqlEdition = 'Developer';
+# Load Product Keys Array from File, or Manually provide Serial Key
+ & '.\6. SQL Installation - Product Keys.ps1'
+$productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
+$pInstanceName = 'MSSQLSERVER';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
 $SqlSysAdminAccounts = @('Contso\SQLDBA', 'Contso\SQLServices')
@@ -13,6 +24,8 @@ $SqlBackupDirectory = "E:\Backup\$pInstanceName"
 $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
+# Derived Variables
+$SetupISOImagePath = "$SqlSetupInventoryPath\$pSqlVersion\$SqlEdition\SqlServer_$($pSqlVersion)_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -22,24 +35,38 @@ $pSqlDataDirectory = '"' + $SqlDataDirectory + '"';
 $pSqlBackupDirectory = '"' + $SqlBackupDirectory + '"';
 $pSqlTempDbDirectory = '"' + $SqlTempDbDirectory + '"';
 $pSqlLogDirectory = '"' + $SqlLogDirectory + '"';
-if ($SqlEdition -eq 'Standard') {
-  $productKey = 'P7FRV-Y6X6Y-Y8C6Q-TB4QR-DMTTK';
-}
-elseif ($SqlEdition -eq 'Developer') {
-  $productKey = '82YJF-9RP6B-YQV9M-VXQFR-YJBGX';
-}
-elseif ($SqlEdition -eq 'Enterprise') {
-  $productKey = '27HMJ-GH7P9-X2TTB-WPHQC-RG79R';
-}
-
 
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
 
+$sqlSetupPath
 Set-Location $setupDriveLetter;
 
-Setup.exe /Q /ACTION=Install /QS /IACCEPTSQLSERVERLICENSETERMS /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=27HMJ-GH7P9-X2TTB-WPHQC-RG79R /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR
-=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /ADDCURRENTUSERASSQLADMIN /TCPENABLED=1
-/INDICATEPROGRESS /HIDECONSOLE
+$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
 
+Write-Host $OutputVariable -ForegroundColor DarkRed;
+<# # Message in case of Failure
+The following error occurred:
+No features were installed during the setup execution. The requested features m
+ay already be installed. Please review the summary.txt log for further details.
 
+Error result: -2068643838
+Result facility code: 1203
+Result error code: 2
+
+Please review the summary.txt log for further details
+Microsoft (R) SQL Server 2014 12.00.2000.08
+
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+#>
+
+<# # Message in case of Success
+Microsoft (R) SQL Server 2014 12.00.2000.08
+
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+#>
+
+# Eject/Unmount ISO Image
+Dismount-DiskImage -ImagePath $SetupISOImagePath;
