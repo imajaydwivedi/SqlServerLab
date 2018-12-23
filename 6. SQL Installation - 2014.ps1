@@ -7,8 +7,12 @@
 
 # Input Variables
 $SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
-$SqlEdition = 'Standard';
-$pInstanceName = 'SQL2014';
+$pSqlVersion = '2014'
+$SqlEdition = 'Developer';
+# Load Product Keys Array from File, or Manually provide Serial Key
+ & '.\6. SQL Installation - Product Keys.ps1'
+$productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
+$pInstanceName = 'MSSQLSERVER';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
 $SqlSysAdminAccounts = @('Contso\SQLDBA', 'Contso\SQLServices')

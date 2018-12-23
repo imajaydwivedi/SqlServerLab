@@ -9,6 +9,9 @@
 $SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
 $pSqlVersion = '2016'
 $SqlEdition = 'Developer';
+# Load Product Keys Array from File, or Manually provide Serial Key
+ & '.\6. SQL Installation - Product Keys.ps1'
+$productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
 $pInstanceName = 'MSSQLSERVER';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
@@ -33,15 +36,6 @@ $pSqlDataDirectory = '"' + $SqlDataDirectory + '"';
 $pSqlBackupDirectory = '"' + $SqlBackupDirectory + '"';
 $pSqlTempDbDirectory = '"' + $SqlTempDbDirectory + '"';
 $pSqlLogDirectory = '"' + $SqlLogDirectory + '"';
-if ($SqlEdition -eq 'Standard') {
-  $productKey = '';
-}
-elseif ($SqlEdition -eq 'Developer') {
-  $productKey = '22222-00000-00000-00000-00000';
-}
-elseif ($SqlEdition -eq 'Enterprise') {
-  $productKey = '';
-}
 
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
