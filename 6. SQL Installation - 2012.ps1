@@ -1,5 +1,12 @@
-﻿# Input Variables
-$SqlSetupInventoryPath = 'G:\SQL_Server_Setups';
+﻿# ***************************************************************************************
+# Unattended Installation of SQL Server 2012
+# History:- Developer = Not Tested
+#           Enterprise = OK
+#           Standard = OK
+# ***************************************************************************************
+
+# Input Variables
+$SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
 $SqlEdition = 'Standard'; #Enterprise, Standard, Developer
 $pInstanceName = 'SQL2012';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
@@ -14,7 +21,7 @@ $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
 # Derived Variables
-$SetupISOImagePath = "$SqlSetupInventoryPath\2014\$SqlEdition\SqlServer_2014_$SqlEdition.ISO";
+$SetupISOImagePath = "$SqlSetupInventoryPath\2012\$SqlEdition\SqlServer_2012_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -40,7 +47,7 @@ $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
 $sqlSetupPath
 Set-Location $setupDriveLetter;
 
-$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /IACCEPTSQLSERVERLICENSETERMS /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=27HMJ-GH7P9-X2TTB-WPHQC-RG79R /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
+$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
 
 Write-Host $OutputVariable -ForegroundColor DarkRed;
 <# # Message in case of Failure

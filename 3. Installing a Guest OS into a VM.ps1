@@ -1,7 +1,4 @@
-﻿# Set TimeZone to IST
-Set-TimeZone -Id 'India Standard Time'
-
-# Enable .net framework 3.5
+﻿# Enable .net framework 3.5
 DISM /Online /Enable-Feature /FeatureName:NetFx3 /All
 # Or
 Install-WindowsFeature Net-Framework-Core -source D:\sources\sxs

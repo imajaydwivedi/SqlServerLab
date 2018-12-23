@@ -1,6 +1,13 @@
-﻿# Input Variables
-$SetupISOImagePath = 'G:\MICROSOFT_SQL_SERVER_2014_ENTERPRISE_EDITION_X64-DVTiSO[rarbg]\d-351mse.iso';
-$SqlEdition = 'Enterprise';
+﻿# ***************************************************************************************
+# Unattended Installation of SQL Server 2014
+# History:- Developer = Not Tested
+#           Enterprise = OK
+#           Standard = OK
+# ***************************************************************************************
+
+# Input Variables
+$SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
+$SqlEdition = 'Standard';
 $pInstanceName = 'SQL2014';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
@@ -13,6 +20,8 @@ $SqlBackupDirectory = "E:\Backup\$pInstanceName"
 $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
+# Derived Variables
+$SetupISOImagePath = "$SqlSetupInventoryPath\2014\$SqlEdition\SqlServer_2014_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -32,14 +41,37 @@ elseif ($SqlEdition -eq 'Enterprise') {
   $productKey = '27HMJ-GH7P9-X2TTB-WPHQC-RG79R';
 }
 
-
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
 
+$sqlSetupPath
 Set-Location $setupDriveLetter;
 
-Setup.exe /Q /ACTION=Install /QS /IACCEPTSQLSERVERLICENSETERMS /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=27HMJ-GH7P9-X2TTB-WPHQC-RG79R /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR
-=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /ADDCURRENTUSERASSQLADMIN /TCPENABLED=1
-/INDICATEPROGRESS /HIDECONSOLE
+$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
 
+Write-Host $OutputVariable -ForegroundColor DarkRed;
+<# # Message in case of Failure
+The following error occurred:
+No features were installed during the setup execution. The requested features m
+ay already be installed. Please review the summary.txt log for further details.
 
+Error result: -2068643838
+Result facility code: 1203
+Result error code: 2
+
+Please review the summary.txt log for further details
+Microsoft (R) SQL Server 2014 12.00.2000.08
+
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+#>
+
+<# # Message in case of Success
+Microsoft (R) SQL Server 2014 12.00.2000.08
+
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+#>
+
+# Eject/Unmount ISO Image
+Dismount-DiskImage -ImagePath $SetupISOImagePath;

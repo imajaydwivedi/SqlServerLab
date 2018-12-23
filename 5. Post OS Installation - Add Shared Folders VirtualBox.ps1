@@ -1,23 +1,26 @@
-﻿#$machines = @('DC','SQL-A','SQL-B','SQL-C','SQL-D','SQL-E','SQL-F','SQL-G');
-$machines = @('SQL-A')
-$host_Softwares = 'E:\Softwares';
-$host_Downloads = 'C:\Users\adwivedi\Downloads'
+﻿# Step 01:- Add Shared Folders
+Host_E_Drive
+    E:\
 
-foreach($vm in $machines)
-{
-    # Add shared folders
-    VBoxManage sharedfolder add $vm --name Host_Softwares --hostpath $host_Softwares --automount;
-    VBoxManage sharedfolder add $vm --name Host_Downloads --hostpath $host_Downloads --automount;
+Host_Downloads
+    C:\Users\adwivedi\Downloads
 
-    # Configuring a Virtual Network Adapter
-        # Bridged Adapter
-    VBoxManage modifyvm $vm --nic2 bridged
-        # NAT
-    #VBoxManage modifyvm $vm --nic3 nat
-}
+Host_Softwares
+    G:\SQL_Server_Setups
 
-# Change IP of machine for Host-Only Adapter
-netsh int ip set address "Ethernet 2" address=192.168.1.20 mask=255.255.255.0 gateway=192.168.1.1
+# Step 02:- Add Bridged Adapter (Ethernet 2)
+
+# Step 03:- Start VM
+
+# Step 04:- Copy "SQL_Server_Setups" to D:\ Drive of DC.Contso.com. For other machines, skip this step
+
+# Step 06:- Execute below command to install Windows Management Framework
+\\DC\SQL_Server_Setups\WMF\2012R2\WMF_2012R2.msu /quiet
+
+# Step 07:- Once VM is backup after reboot, run below query to Set Timezone
+Set-TimeZone -Id 'India Standard Time'
+
+# Step 08:- # Change IP of machine for Bridged Adapter
+New-NetIPAddress –InterfaceAlias “Ethernet 2” –IPAddress “192.168.1.30” –PrefixLength 24 -DefaultGateway 192.168.1.1
 Netsh interface ipv4 set dnsservers "Ethernet 2" static 8.8.8.8 primary
 netsh interface ip add dns “Ethernet 2" 8.8.4.4 index=2
-

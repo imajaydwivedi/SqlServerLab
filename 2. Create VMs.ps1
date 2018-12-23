@@ -18,11 +18,11 @@ vboxmanage setproperty machinefolder $machinePath
 foreach($vm in $machines)
 {
     # Creating a VM
-    VBoxManage createvm --name $vm --ostype Windows2016_64 --register
+    VBoxManage createvm --name $vm --ostype Windows2012_64 --register
     #VBoxManage showvminfo $vm
 
     # Setting Up a VM's Properties
-    VBoxManage modifyvm $vm --cpus 2 --memory 2048 --vram 20
+    VBoxManage modifyvm $vm --cpus 2 --memory 1024 --vram 20
 
     # Set BiDirectional Clipboard
     VBoxManage modifyvm $vm --clipboard bidirectional
@@ -32,11 +32,18 @@ foreach($vm in $machines)
     # Configuring a Virtual Network Adapter
         # Host Only
     VBoxManage modifyvm $vm --nic1 hostonly --hostonlyadapter1 vboxnet0
+
+    <#
         # Bridged Adapter
-    #VBoxManage modifyvm $vm --nic2 bridged
+    VBoxManage modifyvm $vm --nic2 bridged
         # NAT
     #VBoxManage modifyvm $vm --nic3 nat
-    
+
+    # Add shared folders
+    VBoxManage sharedfolder add $vm --name Host_Softwares --hostpath $host_Softwares --automount;
+    VBoxManage sharedfolder add $vm --name Host_Downloads --hostpath $host_Downloads --automount;
+    #>
+
     # Register VM
     $vmFilePath = "$($machinePath)$vm\$vm.vbox";
     #VBoxManage registervm $vmFilePath

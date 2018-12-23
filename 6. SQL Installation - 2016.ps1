@@ -1,11 +1,19 @@
-﻿# Input Variables
-$SetupISOImagePath = 'G:\MICROSOFT_SQL_SERVER_2014_ENTERPRISE_EDITION_X64-DVTiSO[rarbg]\d-351mse.iso';
-$SqlEdition = 'Enterprise';
-$pInstanceName = 'SQL2014';
+﻿# ***************************************************************************************
+# Unattended Installation of SQL Server 2016
+# History:- Developer = OK
+#           Enterprise = Not Tested
+#           Standard = Not Tested
+# ***************************************************************************************
+
+# Input Variables
+$SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
+$pSqlVersion = '2016'
+$SqlEdition = 'Developer';
+$pInstanceName = 'MSSQLSERVER';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
 $SqlSysAdminAccounts = @('Contso\SQLDBA', 'Contso\SQLServices')
-$FeatureParameters = @('SQLEngine', 'Replication', 'FullText', 'BC', 'Conn', 'SSMS', 'ADV_SSMS', 'SNAC_SDK', 'SDK')
+$FeatureParameters = @('SQLEngine', 'Replication', 'FullText', 'BC', 'Conn', 'SNAC_SDK', 'SDK')
 $InstanceRootDirectory = 'E:\SysDbs'
 $SqlDataDirectory = "E:\Data\$pInstanceName"
 $SqlLogDirectory = "E:\Log\$pInstanceName"
@@ -13,6 +21,9 @@ $SqlBackupDirectory = "E:\Backup\$pInstanceName"
 $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
+
+# Derived Variables
+$SetupISOImagePath = "$SqlSetupInventoryPath\2016\$SqlEdition\SqlServer_2016_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -23,23 +34,48 @@ $pSqlBackupDirectory = '"' + $SqlBackupDirectory + '"';
 $pSqlTempDbDirectory = '"' + $SqlTempDbDirectory + '"';
 $pSqlLogDirectory = '"' + $SqlLogDirectory + '"';
 if ($SqlEdition -eq 'Standard') {
-  $productKey = 'P7FRV-Y6X6Y-Y8C6Q-TB4QR-DMTTK';
+  $productKey = '';
 }
 elseif ($SqlEdition -eq 'Developer') {
-  $productKey = '82YJF-9RP6B-YQV9M-VXQFR-YJBGX';
+  $productKey = '22222-00000-00000-00000-00000';
 }
 elseif ($SqlEdition -eq 'Enterprise') {
-  $productKey = '27HMJ-GH7P9-X2TTB-WPHQC-RG79R';
+  $productKey = '';
 }
-
 
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
 
+$sqlSetupPath
 Set-Location $setupDriveLetter;
 
-Setup.exe /Q /ACTION=Install /QS /IACCEPTSQLSERVERLICENSETERMS /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=27HMJ-GH7P9-X2TTB-WPHQC-RG79R /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR
-=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /ADDCURRENTUSERASSQLADMIN /TCPENABLED=1
-/INDICATEPROGRESS /HIDECONSOLE
+$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /SQLSVCINSTANTFILEINIT=1 /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
 
+Write-Host $OutputVariable -ForegroundColor DarkRed;
+<# # Message in case of Failure
 
+SQL Server 2016 transmits information about your installation experience, as well as other usage and performance data, to Microsoft to help improve the product. To learn more about SQL Server 2016 data processing and privacy controls, please see the Privacy 
+Statement.
+The following error occurred:
+The setting 'IACCEPTPYTHONLICENSETERMS' specified is not recognized.
+
+Error result: -2068578301
+Result facility code: 1204
+Result error code: 3
+
+Please review the summary.txt log for further details
+Microsoft (R) SQL Server 2016 13.00.5026.00
+
+Copyright (c) 2016 Microsoft.  All rights reserved.
+
+#>
+
+<# # Message in case of Success
+Microsoft (R) SQL Server 2014 12.00.2000.08
+
+Copyright (c) Microsoft Corporation.  All rights reserved.
+
+#>
+
+# Eject/Unmount ISO Image
+Dismount-DiskImage -ImagePath $SetupISOImagePath;

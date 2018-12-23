@@ -17,6 +17,10 @@ if not exist `"$($machinePath)$($vm)`" mkdir `"$($machinePath)$($vm)`"
     
     foreach($fl in $files)
     {
+        if($vm -eq 'DC' -and $fl -eq 'SQL_Data.vhd') { # Generate only C-G Drive disks
+            break;
+        }
+
         if($files_20gb -contains $fl)
         {
             $vhdStmt = "`r`ncreate vdisk file=$($machinePath)$($vm)\$($fl) maximum=20480 type=expandable";
