@@ -4,14 +4,16 @@
 #           Enterprise = OK
 #           Standard = OK
 # ***************************************************************************************
+if( (Get-ExecutionPolicy) -ne 'ByPass') {
+    Write-Host "Execution Policy has been set to 'ByPass' for this Session. Kindly re-run this script." -ForegroundColor Yellow;
+    exit
+}
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force;
 
 # Input Variables
 $SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
 $pSqlVersion = '2012'
 $SqlEdition = 'Standard';
-# Load Product Keys Array from File, or Manually provide Serial Key
- & '.\6. SQL Installation - Product Keys.ps1'
-$productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
 $pInstanceName = 'MSSQLSERVER';
 $pSqlDatabaseEngineAgentServiceAccount = 'Contso\SQLServices'
 $pSqlDatabaseEngineAgentServiceAccountPassword = 'Pa$$w0rd'
@@ -22,7 +24,28 @@ $SqlDataDirectory = "E:\Data\$pInstanceName"
 $SqlLogDirectory = "E:\Log\$pInstanceName"
 $SqlBackupDirectory = "E:\Backup\$pInstanceName"
 $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
-$pSqlSAPassword = 'Pa$$w0rd'
+$pSqlSAPassword = 'Pa$$w0rd';
+# Load Product Keys Array from File, or Manually provide Serial Key
+try { Invoke-Expression -Command "$SqlSetupInventoryPath\SQL_Lab\6. SQL Installation - Product Keys.ps1"; } 
+catch { 
+    try { & '.\6. SQL Installation - Product Keys.ps1' }
+    catch {
+        try {. "$PSScriptRoot\6. SQL Installation - Product Keys.ps1"}
+        catch { Write-Host "Could not fetch Product Key from '6. SQL Installation - Product Keys.ps1' script file." -ForegroundColor Red;
+                Write-Host 'Kindly set "$productKey" = ($pKeyServerEdition variable manually' -ForegroundColor Red;
+        }
+        finally {
+            $productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
+            if(!$productKey) {
+$productKey = 'your product key here';
+            } else { Write-Host "Product Key = {$productKey}" -ForegroundColor Cyan;}
+            if([string]::IsNullOrEmpty($productKey)) {
+                Write-Host "You forgot to mention the product Key";
+                exit;
+            }
+        }
+    }
+}
 
 # Derived Variables
 Copy-Item "$SqlSetupInventoryPath\$pSqlVersion\$SqlEdition\SqlServer_$($pSqlVersion)_$SqlEdition.ISO" -Destination 'C:\TEMP';
