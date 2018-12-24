@@ -1,9 +1,10 @@
 ﻿# https://www.oracle.com/technetwork/articles/servers-storage-admin/manage-vbox-cli-2264359.html
     # https://www.virtualbox.org/manual/ch08.html
-$machinePath = 'E:\Virtual_Machines\';
+$machinePath = 'F:\Virtual_Machines\';
 #$machines = @('DC','SQL-A','SQL-B','SQL-C','SQL-D','SQL-E','SQL-F','SQL-G');
-$machines = @('SQL-A');
-$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd','SQL_Data.vhd','SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd','SQL_Backup.vhd');
+$machines = @('SQL-H','SQL-I','SQL-J','SQL-K');
+#$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd','SQL_Data.vhd','SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd','SQL_Backup.vhd');
+$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd');
 $files_20gb = @('SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd');
 $ISOImage_Server = 'E:\Softwares\SW_DVD9_Windows_Svr_Std_and_DataCtr_2012_R2_64Bit_English_-3_MLF_X19-53588.ISO'
 $host_Softwares = 'E:\Softwares';

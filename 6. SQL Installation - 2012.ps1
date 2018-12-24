@@ -8,7 +8,7 @@
 # Input Variables
 $SqlSetupInventoryPath = '\\DC\SQL_Server_Setups';
 $pSqlVersion = '2012'
-$SqlEdition = 'Enterprise';
+$SqlEdition = 'Standard';
 # Load Product Keys Array from File, or Manually provide Serial Key
  & '.\6. SQL Installation - Product Keys.ps1'
 $productKey = ($pKeyServerEdition | Where-Object {$_.Edition -eq $SqlEdition -and $_.Version -eq $pSqlVersion}).pKey;
@@ -25,7 +25,8 @@ $SqlTempDbDirectory = "E:\TempDb\$pInstanceName"
 $pSqlSAPassword = 'Pa$$w0rd'
 
 # Derived Variables
-$SetupISOImagePath = "$SqlSetupInventoryPath\2012\$SqlEdition\SqlServer_2012_$SqlEdition.ISO";
+Copy-Item "$SqlSetupInventoryPath\$pSqlVersion\$SqlEdition\SqlServer_$($pSqlVersion)_$SqlEdition.ISO" -Destination 'C:\TEMP';
+$SetupISOImagePath = "C:\TEMP\SqlServer_$($pSqlVersion)_$SqlEdition.ISO";
 $pSqlSysAdminAccounts = '';
 $SqlSysAdminAccounts | foreach {$pSqlSysAdminAccounts += '"' + $_ + '" '}
 $pFeatureParameters = '';
@@ -35,15 +36,6 @@ $pSqlDataDirectory = '"' + $SqlDataDirectory + '"';
 $pSqlBackupDirectory = '"' + $SqlBackupDirectory + '"';
 $pSqlTempDbDirectory = '"' + $SqlTempDbDirectory + '"';
 $pSqlLogDirectory = '"' + $SqlLogDirectory + '"';
-if ($SqlEdition -eq 'Standard') {
-  $productKey = 'YFC4R-BRRWB-TVP9Y-6WJQ9-MCJQ7';
-}
-elseif ($SqlEdition -eq 'Developer') {
-  $productKey = 'YQWTX-G8T4R-QW4XX-BVH62-GP68Y';
-}
-elseif ($SqlEdition -eq 'Enterprise') {
-  $productKey = '748RB-X4T6B-MRM7V-RTVFF-CHC8H';
-}
 
 $mountResult = Mount-DiskImage $SetupISOImagePath -PassThru;
 $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
@@ -51,9 +43,33 @@ $setupDriveLetter = ($mountResult | Get-Volume).DriveLetter + ':\';
 $sqlSetupPath
 Set-Location $setupDriveLetter;
 
-$OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
+try {
+    $OutputVariable = cmd.exe /c "Setup.exe /QS /ACTION=Install /ENU /IACCEPTSQLSERVERLICENSETERMS /UpdateEnabled=0 /FEATURES=$pFeatureParameters /INSTANCENAME=$pInstanceName /SQLSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /SQLSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCACCOUNT=$pSqlDatabaseEngineAgentServiceAccount /AGTSVCPASSWORD=$pSqlDatabaseEngineAgentServiceAccountPassword /AGTSVCSTARTUPTYPE=Automatic /SQLSYSADMINACCOUNTS=$pSqlSysAdminAccounts /PID=$productKey /INSTALLSQLDATADIR=$pInstanceRootDirectory /SQLUSERDBDIR=$pSqlDataDirectory /SQLUSERDBLOGDIR=$pSqlLogDirectory /SQLTEMPDBDIR=$pSqlTempDbDirectory /SQLTEMPDBLOGDIR=$pSqlTempDbDirectory /SQLBACKUPDIR=$pSqlBackupDirectory /BROWSERSVCSTARTUPTYPE=Automatic /SECURITYMODE=SQL /SAPWD=$pSqlSAPassword /SQLCOLLATION=SQL_Latin1_General_CP1_CI_AS /TCPENABLED=1 /HIDECONSOLE" | Out-String;
+}
+catch {
+    $formatstring = "{0} : {1}`n{2}`n" +
+                "    + CategoryInfo          : {3}`n" +
+                "    + FullyQualifiedErrorId : {4}`n"
+    $fields = $_.InvocationInfo.MyCommand.Name,
+              $_.ErrorDetails.Message,
+              $_.InvocationInfo.PositionMessage,
+              $_.CategoryInfo.ToString(),
+              $_.FullyQualifiedErrorId
 
-Write-Host $OutputVariable -ForegroundColor DarkRed;
+    $formatstring -f $fields
+    Write-Host ($_.Exception.Message) -ForegroundColor Red;
+}
+finally {
+    # Eject/Unmount ISO Image
+    Dismount-DiskImage -ImagePath $SetupISOImagePath;
+}
+
+if($OutputVariable -like "*Error*" -or [string]::IsNullOrEmpty($OutputVariable)) {
+    Write-Host $OutputVariable -ForegroundColor Red;
+} else {
+    Write-Host "Setup Completed Successfully." -ForegroundColor Green;
+}
+
 <# # Message in case of Failure
 The following error occurred:
 No features were installed during the setup execution. The requested features m
@@ -69,6 +85,3 @@ Microsoft (R) SQL Server 2014 12.00.2000.08
 Copyright (c) Microsoft Corporation.  All rights reserved.
 
 #>
-
-# Eject/Unmount ISO Image
-Dismount-DiskImage -ImagePath $SetupISOImagePath;

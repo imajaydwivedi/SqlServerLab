@@ -1,7 +1,9 @@
-﻿$machinePath = 'E:\Virtual_Machines\VHDs\';
+﻿$machinePath = 'F:\Virtual_Machines\VHDs\';
 #$machines = @('DC','SQL-A','SQL-B','SQL-C','SQL-D','SQL-E','SQL-F','SQL-G');
-$machines = @('DC');
-$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd','SQL_Data.vhd','SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd','SQL_Backup.vhd');
+$machines = @('SQL-H','SQL-I','SQL-J','SQL-K');
+#$machines = @('DC');
+#$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd','SQL_Data.vhd','SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd','SQL_Backup.vhd');
+$files = @('C_Drive.vhd','D_Drive.vhd','E_Drive.vhd','F_Drive.vhd','G_Drive.vhd');
 $files_20gb = @('SQL_Log.vhd','SQL_TempDb.vhd','SQL_SysDbs.vhd');
 $vhdStatements = '';
 
