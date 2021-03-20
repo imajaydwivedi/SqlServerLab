@@ -1,0 +1,9 @@
+# list VMs
+VBoxManage list vms
+
+# list running VMs
+VBoxManage list runningvms
+
+# list OS types
+VBoxManage list ostypes
+
