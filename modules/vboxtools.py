@@ -7,16 +7,19 @@ with open(setting_file) as f:
 print(setting)
 '''
 
-class VirtualMachineTemplate():
-    # Class attributes
-    default_machine_folder = None
-    path_separator = "\\"
+class VirtualMachineRegister():
+    """
+    DOCTRING: Library of virtual machines
+    INPUT:
+    OUTPUT:
+    """
 
     def __init__(self,vm_name):
-        self.vm_name = vm_name
-        VirtualMachineTemplate.default_machine_folder = self.__find_default_machine_folder()
-        self.__set_path_separator()
-        self.template_file = f'{self.default_machine_folder}{self.path_separator}{self.vm_name}-vboxtools-template.json'
+        #self.vm_name = vm_name
+        self.__vms = set()
+        self.default_machine_folder = self.__find_default_machine_folder()
+        self.__path_separator = self.__get_path_separator()
+        #self.template_file = f'{self.default_machine_folder}{self.path_separator}{self.vm_name}-vboxtools-template.json'
 
     def generate_template(self):
         pass
@@ -27,9 +30,23 @@ class VirtualMachineTemplate():
         m = re.match(r"^Default machine folder:\s+(?P<machine_folder>.+)", output)
         return m.group('machine_folder')
 
-    def __set_path_separator(self):
+    def __get_path_separator(self):
+        path_separator = "\\"
         if(platform.sys.platform == 'linux'):
-            VirtualMachineTemplate.path_separator = '/'
+            path_separator = '/'
+        return path_separator
+
+    def __iter__(self):
+        self.__counter = -1
+        return self
+
+    def __next__(self):
+        if self.__counter >= len(self.vms):
+            raise StopIteration
+        else:
+            index += 1
+            self.__counter += 1
+        return self.__vms[self.__counter]
 
 
 class Disk():
