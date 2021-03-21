@@ -29,11 +29,17 @@ class VirtualMachine():
         [type]: [description]
     """
 
-    def __init__(self,vm_name):
-        self.vm_name = vm_name
+    def __init__(self,name):
+        self.name = name
+        self.props = self.__get_vm_info()
 
     def __str__(self):
-        return f'Object for VM [{self.vm_name}]'
+        return f'Object for VM [{self.name}]'
+
+    def __get_vm_info(self):
+        stream = os.popen(f'VBoxManage showvminfo "{self.name}" --machinereadable')
+        output = stream.readlines()
+        return {((ln.strip()).split('='))[0]:((ln.strip()).split('='))[1] for ln in output}
 
     def get_disk(self):
         pass
@@ -129,9 +135,8 @@ class VirtualMachineRegister():
 if __name__ == '__main__':
     print(f"Module script file '{os.path.basename(__file__)}' called")
     vm_register = VirtualMachineRegister()
-    [print(vm) for vm in vm_register.get_vms()]
-    print(next(vm_register))
-    print(next(vm_register))
-    print(next(vm_register))
+    #[print(vm) for vm in vm_register.get_vms()]
+    vm_dc = next(vm_register);
+    print(vm_dc.props)
 
 
