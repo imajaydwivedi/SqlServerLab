@@ -138,7 +138,7 @@ class VirtualMachineRegister():
         else:
             self.__counter += 1
         #return self.vms[self.__counter]
-        return [vm for index,vm in enumerate(self.vms.items()) if index == self.__counter]
+        return [vm for index,vm in enumerate(self.vms.values()) if index == self.__counter][0]
 
 
 #type(my_vm)
@@ -159,6 +159,6 @@ if __name__ == '__main__':
     #print(vm_register.vms)
     #[print(vm) for vm in vm_register.get_vms()]
     vm_dc = next(vm_register);
-    print(vm_dc)
+    print(vm_dc.name)
 
 
