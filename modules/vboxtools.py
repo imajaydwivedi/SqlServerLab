@@ -76,23 +76,40 @@ class VirtualMachineRegister():
     """
 
     def __init__(self):
-        #self.vm_name = vm_name
-        self.vms = list()
+        self.ostypes = self.__detect_ostypes()
+        self.vms = self.__detect_existing_vms()
         self.default_machine_folder = self.__find_default_machine_folder()
         self.__path_separator = self.__get_path_separator()
-        self.__detect_existing_vms()
         self.__counter = -1
         #self.template_file = f'{self.default_machine_folder}{self.path_separator}{self.vm_name}-vboxtools-template.json'
 
     def __detect_existing_vms(self):
         stream = os.popen('VBoxManage list vms')
         output = stream.readlines()
+        vms = {}
         for ln in output:
             line = ln.strip()
             m = re.match(r'^"(?P<vm_name>[A-Za-z0-9-_]*)"\s\{[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\}$', line)
             vm_name = m.group('vm_name')
             vm = VirtualMachine(vm_name)
-            self.vms.append(vm)
+            #self.vms.append(vm)
+            vms[vm.name] = vm
+        return vms
+
+    def __detect_ostypes(self):
+        stream = os.popen('VBoxManage list ostypes')
+        output = stream.readlines()
+
+        index = 0
+        ostypes = {}
+        while index < len(output):
+            os_type_line = [ line.strip() for line in output[index:index+5] ]
+            os_type = { (x.split(':',1)[0]).strip() : (x.split(':',1)[1]).strip() for x in os_type_line }
+            #ostypes.append(os_type)
+            ostypes[os_type['ID']] = os_type
+            index += 6
+
+        return ostypes
 
     def get_vms(self):
         return self.vms
@@ -120,7 +137,8 @@ class VirtualMachineRegister():
             raise StopIteration
         else:
             self.__counter += 1
-        return self.vms[self.__counter]
+        #return self.vms[self.__counter]
+        return [vm for index,vm in enumerate(self.vms.items()) if index == self.__counter]
 
 
 #type(my_vm)
@@ -133,10 +151,14 @@ class VirtualMachineRegister():
 #VBoxManage createvm --name vm_name --ostype "Windows2016_64" --register
 
 if __name__ == '__main__':
+    r = os.system('clear')
+
     print(f"Module script file '{os.path.basename(__file__)}' called")
     vm_register = VirtualMachineRegister()
+    #print(vm_register.ostypes)
+    #print(vm_register.vms)
     #[print(vm) for vm in vm_register.get_vms()]
     vm_dc = next(vm_register);
-    print(vm_dc.props)
+    print(vm_dc)
 
 
