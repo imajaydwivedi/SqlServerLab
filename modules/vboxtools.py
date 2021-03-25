@@ -70,14 +70,45 @@ class VirtualMachine():
 
 class VirtualMachineRegister():
     """
-    DOCTRING: Library of virtual machines
-    INPUT:
-    OUTPUT:
+        Library of VirtualBox virtual machines
+
+        INPUT:
+
+        OUTPUT:
+
+        EXAMPLE: Get all supported OsTypes
+            vm_register = VirtualMachineRegister()
+            [print(item['ID']) for item in vm_register.get_ostypes()]
+            print(", ".join( [item['ID'] for item in vm_register.get_ostypes()] ))
+
+        EXAMPLE: Fetch next vm
+            vm_register = VirtualMachineRegister()
+            vm = next(vm_register);
+            print(vm.name)
+
+        EXAMPLE: Find VM with keyword in name
+            vm_register = VirtualMachineRegister()
+            [print(vm.name) for vm in vm_register.get_vm_by_name('SQL-')]
+
+        EXAMPLE: Find supported OsType with keyword in ID
+            vm_register = VirtualMachineRegister()
+            [print(ot) for ot in vm_register.get_ostype_by_name('linux')]
+
+        EXAMPLE: Search OsType by attributes
+            vm_register = VirtualMachineRegister()
+            
+            print(f"\\nfind by condition => ID\\n")
+            r = vm_register.search_ostype(lambda ot : 'linux' in ot['ID'].lower())
+            [print(ot) for ot in r]
+
+            print(f"\\nfind by condition => Description\\n")
+            r = vm_register.search_ostype(lambda ot : 'windows 2016' in ot['Description'].lower())
+            [print(ot) for ot in r]
     """
 
     def __init__(self):
-        self.ostypes = self.__detect_ostypes()
-        self.vms = self.__detect_existing_vms()
+        self.__ostypes = self.__detect_ostypes()
+        self.__vms = self.__detect_existing_vms()
         self.default_machine_folder = self.__find_default_machine_folder()
         self.__path_separator = self.__get_path_separator()
         self.__counter = -1
@@ -112,7 +143,10 @@ class VirtualMachineRegister():
         return ostypes
 
     def get_vms(self):
-        return self.vms
+        return self.__vms.values()
+
+    def get_ostypes(self):
+        return self.__ostypes.values()
 
     def generate_template(self):
         pass
@@ -133,12 +167,33 @@ class VirtualMachineRegister():
         return self
 
     def __next__(self):
-        if self.__counter >= len(self.vms):
+        if self.__counter >= len(self.__vms):
             raise StopIteration
         else:
             self.__counter += 1
         #return self.vms[self.__counter]
-        return [vm for index,vm in enumerate(self.vms.values()) if index == self.__counter][0]
+        return [vm for index,vm in enumerate(self.__vms.values()) if index == self.__counter][0]
+
+    def get_vm_by_name(self,keyword):
+        r = [self.__vms[name] for name in self.__vms.keys() if keyword.lower() in name.lower()]
+        if len(r) == 0:
+            return None
+        else:
+            return r
+
+    def search_vm(self,condition):
+        pass
+
+    def get_ostype_by_name(self,keyword):
+        r = [self.__ostypes[otid] for otid in self.__ostypes.keys() if keyword.lower() in otid.lower()]
+        if len(r) == 0:
+            return None
+        else:
+            return r
+
+    def search_ostype(self,condition):
+        return [ot for ot in self.__ostypes.values() if condition(ot)]
+
 
 
 #type(my_vm)
@@ -153,12 +208,15 @@ class VirtualMachineRegister():
 if __name__ == '__main__':
     r = os.system('clear')
 
-    print(f"Module script file '{os.path.basename(__file__)}' called")
+    print(f"*** Module script file '{os.path.basename(__file__)}' called ***")
+    print('******************************************************************')
     vm_register = VirtualMachineRegister()
-    #print(vm_register.ostypes)
-    #print(vm_register.vms)
-    #[print(vm) for vm in vm_register.get_vms()]
-    vm_dc = next(vm_register);
-    print(vm_dc.name)
+    help(vm_register)
+    #[print(ot) for ot in vm_register.get_ostype_by_name('linux')]
+    #[print(vm.name) for vm in vm_register.get_vm_by_name('SQL-')]
+
+
+
+
 
 
