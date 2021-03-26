@@ -1,7 +1,7 @@
 # importing os module
 import os, platform, json, argparse, re
 from pathlib import Path
-from modules.vboxtools import Disk, VirtualMachine
+from vboxtools.vboxtools import VirtualMachine, VirtualMachineRegister, Disk
 
 parser = argparse.ArgumentParser(description='Create virtual box vm')
 parser.add_argument('-n', '--vm_name', type=str, metavar='', required=True, help='Name of virtual machine')

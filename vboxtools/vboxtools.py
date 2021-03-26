@@ -1,11 +1,17 @@
 # importing os module
+# importing os module
 import os, platform, json, re
+import colored
+from colored import fg, bg, attr, stylize
+from pathlib import Path
 
-'''
-with open(setting_file) as f:
-    setting = json.load(f)
-print(setting)
-'''
+def verbose(text):
+    print(stylize(text, colored.fg('cyan')))
+def error(text):
+    print(stylize(text, colored.fg('red')))
+def success(text):
+    print(stylize(text, colored.fg('green')))
+
 
 class Disk():
     def __init__(self,filepath,size_gb=20):
@@ -96,7 +102,7 @@ class VirtualMachineRegister():
 
         EXAMPLE: Search OsType by attributes
             vm_register = VirtualMachineRegister()
-            
+
             print(f"\\nfind by condition => ID\\n")
             r = vm_register.search_ostype(lambda ot : 'linux' in ot['ID'].lower())
             [print(ot) for ot in r]
@@ -104,6 +110,10 @@ class VirtualMachineRegister():
             print(f"\\nfind by condition => Description\\n")
             r = vm_register.search_ostype(lambda ot : 'windows 2016' in ot['Description'].lower())
             [print(ot) for ot in r]
+
+        EXAMPLE: Generate machine template for vm 'Sql-X'
+            vm_register = VirtualMachineRegister()
+            vm_register.generate_template('Sql-X')
     """
 
     def __init__(self):
@@ -148,8 +158,36 @@ class VirtualMachineRegister():
     def get_ostypes(self):
         return self.__ostypes.values()
 
-    def generate_template(self):
-        pass
+    def generate_template(self,vm_name='vm_name'):
+        template_dict = {
+            "Name": f'"{vm_name}"',
+            "Machine folder": f'"{self.default_machine_folder}"',
+            "OsType": "Windows2016_64",
+            "Cpu": 2,
+            "RAM": "2048",
+            "Disks": [
+                {"name":"c_drive", "size":20, "mount":"C:\\"},
+                {"name":"d_drive", "size":20, "mount":"D:\\"},
+                {"name":"e_drive", "size":20, "mount":"E:\\"},
+                {"name":"data01_drive", "size":20, "mount":"E:\\data01\\"},
+                {"name":"data02_drive", "size":20, "mount":"E:\\data02\\"},
+                {"name":"log01_drive", "size":5, "mount":"E:\\log01\\"},
+                {"name":"log02_drive", "size":5, "mount":"E:\\log02\\"},
+                {"name":"tempdb_drive", "size":5, "mount":"E:\\tempdb\\"},
+                {"name":"backup01_drive", "size":5, "mount":"E:\\backup01\\"},
+                {"name":"backup02_drive", "size":5, "mount":"E:\\backup02\\"}
+            ]
+        }
+        template_file_path = f'{self.default_machine_folder}{self.__path_separator}{vm_name}__vboxtools_template.json'
+        template_file = Path(template_file_path)
+        if (template_file.exists()):
+            print(f"Kindly remove existing template file '{template_file_path}'")
+        else:
+            with open(template_file_path,'w') as json_file:
+                json_data = json.dumps(template_dict, indent=4)
+                json_file.writelines(json_data)
+            #print(json.dumps(template_dict))
+            print(f"Template file created : {template_file_path}")
 
     def __find_default_machine_folder(self):
         stream = os.popen('VBoxManage list systemproperties | grep "Default machine folder:"')
@@ -194,24 +232,14 @@ class VirtualMachineRegister():
     def search_ostype(self,condition):
         return [ot for ot in self.__ostypes.values() if condition(ot)]
 
-
-
-#type(my_vm)
-#print(my_vm)
-
-#disk_01 = Disk(filepath=f'{default_machine_folder}{path_separator}{args.vm_name}{path_separator}{args.vm_name}_disk01.vdi',size_gb=20)
-#disk_01.create()
-
-
-#VBoxManage createvm --name vm_name --ostype "Windows2016_64" --register
-
 if __name__ == '__main__':
     r = os.system('clear')
 
-    print(f"*** Module script file '{os.path.basename(__file__)}' called ***")
-    print('******************************************************************')
+    verbose(f"*** Module script file '{os.path.basename(__file__)}' called ***")
+    verbose('******************************************************************')
     vm_register = VirtualMachineRegister()
     help(vm_register)
+    #vm_register.generate_template('Sql-X')
     #[print(ot) for ot in vm_register.get_ostype_by_name('linux')]
     #[print(vm.name) for vm in vm_register.get_vm_by_name('SQL-')]
 
