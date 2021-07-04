@@ -1,17 +1,7 @@
 # importing os module
 # importing os module
 import os, platform, json, re
-import colored
-from colored import fg, bg, attr, stylize
 from pathlib import Path
-
-def verbose(text):
-    print(stylize(text, colored.fg('cyan')))
-def error(text):
-    print(stylize(text, colored.fg('red')))
-def success(text):
-    print(stylize(text, colored.fg('green')))
-
 
 class Disk():
     def __init__(self,filepath,size_gb=20):
@@ -21,7 +11,7 @@ class Disk():
     def create(self):
         cmd = f'VBoxManage createmedium disk --filename {self.filepath} --size {self.size_gb * 1024}'
         #os.system(cmd)
-        print(cmd)
+        #print(cmd)
         result = os.system(cmd)
         if result == 0:
           return True
@@ -153,10 +143,12 @@ class VirtualMachineRegister():
         return ostypes
 
     def get_vms(self):
-        return self.__vms.values()
+        for vm in self.__vms.values():
+            yield vm
 
     def get_ostypes(self):
-        return self.__ostypes.values()
+        for ot in self.__ostypes.values():
+            yield ot
 
     def generate_template(self,vm_name='vm_name'):
         template_dict = {
@@ -205,12 +197,16 @@ class VirtualMachineRegister():
         return self
 
     def __next__(self):
+        for vm in self.__vms.values():
+            yield vm
+        '''
         if self.__counter >= len(self.__vms):
             raise StopIteration
         else:
             self.__counter += 1
         #return self.vms[self.__counter]
         return [vm for index,vm in enumerate(self.__vms.values()) if index == self.__counter][0]
+        '''
 
     def get_vm_by_name(self,keyword):
         r = [self.__vms[name] for name in self.__vms.keys() if keyword.lower() in name.lower()]
@@ -235,13 +231,17 @@ class VirtualMachineRegister():
 if __name__ == '__main__':
     r = os.system('clear')
 
-    verbose(f"*** Module script file '{os.path.basename(__file__)}' called ***")
-    verbose('******************************************************************')
+    print(f"*** Module script file '{os.path.basename(__file__)}' called ***")
+    print('******************************************************************')
     vm_register = VirtualMachineRegister()
-    help(vm_register)
+    #help(vm_register)
     #vm_register.generate_template('Sql-X')
     #[print(ot) for ot in vm_register.get_ostype_by_name('linux')]
     #[print(vm.name) for vm in vm_register.get_vm_by_name('SQL-')]
+    #vms = vm_register.get_vms()
+    #type(vms)
+    for vm in next(vm_register):
+        print(vm.name)
 
 
 
