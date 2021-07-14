@@ -7,3 +7,5 @@ for ln in output:
     print(line)
     m = re.match(r'^"\[\w-\_\]*"\s', line)
     print(m)
+
+[Current-Time-UTC], [Pool], [% CPU @Pool-Level], [% CPU @Server-Level], [% Schedulers@Total], [% Schedulers@Sql], [Assigned Schedulers]
