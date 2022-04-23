@@ -31,14 +31,17 @@ foreach($vm in $machines)
     VBoxManage modifyvm $vm --vrde on --vrdemulticon on
 
     # Configuring a Virtual Network Adapter
-        # Host Only
+        # Host Only. Add multiple of them
     VBoxManage modifyvm $vm --nic1 hostonly --hostonlyadapter1 vboxnet0
+    VBoxManage modifyvm $vm --nic2 hostonly --hostonlyadapter2 vboxnet0
 
     <#
         # Bridged Adapter
     VBoxManage modifyvm $vm --nic2 bridged
         # NAT
     #VBoxManage modifyvm $vm --nic3 nat
+        # Remove nic8
+    #VBoxManage modifyvm $vm --nic8 none
 
     # Add shared folders
     VBoxManage sharedfolder add $vm --name Host_Softwares --hostpath $host_Softwares --automount;
