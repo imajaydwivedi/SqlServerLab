@@ -13,6 +13,7 @@
   - Each replica in AGs is a SqlClustered Instance
   - Both nodes working as Publisher & Subscriber
 - 2 Distributor Replicas part of single AG
+
 ## Network
 - Adapter 01 - Internal Network - Subnet 192.168.56.*
 - Adapter 02 - Internal Network - Subnet 192.168.57.*
@@ -20,9 +21,8 @@
 
 ## Host - Hypervisor host
 - 32 vCPU & 128 Gb RAM
-## DC - Domain controller cum SAN
+## [DC - Domain controller cum SAN](lab-machines/dc.ipynb)
 - 4 vCPU & 5 GB RAM
-
 ## SQLMonitor - Monitoring Server running Grafana & SQLMonitor tool
 - 8 vCPU & 16 GB RAM
 ## Workstation - End user laptop/desktop
@@ -35,10 +35,7 @@
 - 8 vCPU & 5 GB RAM
 ## AllVersion - A server with all versions of SQL Server installed
 - 16 vCPU & 16 GB RAM
-
 ## SqlDist-A & SqlDist-B
 - 8 vCPU & 8 GB RAM
-
 ## SqlProd-A, SqlProd-B, SqlDr-A, SqlDr-B
 - 8 vCPU & 6 GB RAM
-
