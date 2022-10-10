@@ -1,6 +1,6 @@
 # SQL Server Lab Setup
 
-## Summary
+## Summary - MultiSubnet - SqlCluster AG Replicas - Distributor on AG
 - 1 Domain Controller
 - 1 Monitoring Server
 - 1 End User machine
@@ -18,6 +18,10 @@
 - Adapter 01 - Internal Network - Subnet 192.168.56.*
 - Adapter 02 - Internal Network - Subnet 192.168.57.*
 - Adapter 03 - Bridged Adapter - Local LAN - Internet
+
+## Description
+
+
 
 ## Host - [Hypervisor host](lab-machines/hypervisor.ipynb)
 - 32 vCPU & 128 Gb RAM
@@ -39,3 +43,4 @@
 - 8 vCPU & 8 GB RAM
 ## [SqlProd-A, SqlProd-B, SqlDr-A, SqlDr-B](lab-machines/sqlcluster-ag.ipynb)
 - 8 vCPU & 6 GB RAM
+
