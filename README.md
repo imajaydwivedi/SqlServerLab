@@ -1,6 +1,6 @@
 # SQL Server Lab Setup
 
-## Summary
+## Summary - MultiSubnet - SqlCluster AG Replicas - Distributor on AG
 - 1 Domain Controller
 - 1 Monitoring Server
 - 1 End User machine
@@ -19,23 +19,28 @@
 - Adapter 02 - Internal Network - Subnet 192.168.57.*
 - Adapter 03 - Bridged Adapter - Local LAN - Internet
 
-## Host - Hypervisor host
+## Description
+
+
+
+## Host - [Hypervisor host](lab-machines/hypervisor.ipynb)
 - 32 vCPU & 128 Gb RAM
 ## [DC - Domain controller cum SAN](lab-machines/dc.ipynb)
 - 4 vCPU & 5 GB RAM
-## SQLMonitor - Monitoring Server running Grafana & SQLMonitor tool
+## [SQLMonitor - Monitoring Server running Grafana & SQLMonitor tool](lab-machines/sqlmonitor.ipynb)
 - 8 vCPU & 16 GB RAM
-## Workstation - End user laptop/desktop
+## [Workstation - End user laptop/desktop](lab-machines/workstation.ipynb)
 - 8 vCPU & 16 GB RAM
-## SqlPractice - High End server for POC
+## [SqlPractice - High End server for POC](lab-machines/sqlpractice.ipynb)
 - 4 vCPU & 32 GB RAM
-## Experiment - A server for POC
+## [Experiment - A server for POC](lab-machines/experiment.ipynb)
 - 4 vCPU & 16 GB RAM
-## Demo - A server for POC
+## [Demo - A server for POC](lab-machines/demo.ipynb)
 - 8 vCPU & 5 GB RAM
-## AllVersion - A server with all versions of SQL Server installed
+## [AllVersion - A server with all versions of SQL Server installed](lab-machines/allversion.ipynb)
 - 16 vCPU & 16 GB RAM
-## SqlDist-A & SqlDist-B
+## [SqlDist-A & SqlDist-B](lab-machines/distributor.ipynb)
 - 8 vCPU & 8 GB RAM
-## SqlProd-A, SqlProd-B, SqlDr-A, SqlDr-B
+## [SqlProd-A, SqlProd-B, SqlDr-A, SqlDr-B](lab-machines/sqlcluster-ag.ipynb)
 - 8 vCPU & 6 GB RAM
+
