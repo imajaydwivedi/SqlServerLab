@@ -18,6 +18,7 @@ $FileContent += Import-Excel -Path 'vcenter_tags_1.xlsx' -WorksheetName 'Sheet2'
 # Step 02 => Iterate through all App_Name tags & Create if not exists
     <# INPUTS => $tagCategoryName
     #>
+$TextInfo = (Get-Culture).TextInfo
 $tagCategoryName = 'App_Name'
 $appNameTagsList = @()
 $appNameTagsList += $FileContent | Select-Object -ExpandProperty App_Name -Unique | Where-Object {$_.trim() -ne ''}
@@ -25,6 +26,8 @@ $appNameTagsListYet2Create = @()
 
 "Loop through following `$appNameTagsList and validate existence => `n`t$($appNameTagsList -join ', ')" | Write-Host -ForegroundColor Yellow
 foreach($appName in $appNameTagsList) {
+    $appName = $TextInfo.ToTitleCase($appName.ToLower())
+
     try {
         $appNameTag = Get-Tag -Name $appName -ErrorAction Stop
     }
@@ -43,7 +46,7 @@ $tagCategory = Get-TagCategory -Name $tagCategoryName -ErrorAction Stop
 foreach($tag2Create in $appNameTagsListYet2Create)
 {
     "Working on tag '$tag2Create'"
-    $tagCreated = New-Tag -Name $tag2Create -Category $tagCategory -Description $tag2Create -ErrorAction Stop
+    $tagCreated = New-Tag -Name $tag2Create -Category $tagCategory -Description 'Application Name' -ErrorAction Stop
 }
 
 
@@ -53,6 +56,7 @@ foreach($tagName in $appNameTagsList) {
     $tagVMS = @()
     $tagVMS += $FileContent | Where-Object {$_.App_Name -eq $tagName} | Select-Object -ExpandProperty Name -Unique | Where-Object {$_.trim() -ne ''}
 
+    $tagName = $TextInfo.ToTitleCase($tagName.ToLower())
     "Assign tag '$tagName' to following VMs => `n`t$($tagVMS -join ', ')" | Write-Host -ForegroundColor Cyan
 
     $vmTag = Get-Tag -Name $tagName -Category $tagCategoryName -ErrorAction Stop
@@ -70,6 +74,8 @@ $appOwnerTagsListYet2Create = @()
 
 "Loop through each `$appOwnerTagsList and validate existence.." | Write-Host -ForegroundColor Cyan
 foreach($appOwner in $appOwnerTagsList) {
+    $appOwner = $TextInfo.ToTitleCase($appOwner.ToLower())
+
     try {
         $appOwnerTag = Get-Tag -Name $appOwner -ErrorAction Stop
     }
@@ -88,7 +94,7 @@ $tagCategory = Get-TagCategory -Name $tagCategoryName -ErrorAction Stop
 foreach($tag2Create in $appOwnerTagsListYet2Create)
 {
     "Working on tag '$tag2Create'"
-    $tagCreated = New-Tag -Name $tag2Create -Category $tagCategory -Description $tag2Create -ErrorAction Stop
+    $tagCreated = New-Tag -Name $tag2Create -Category $tagCategory -Description 'Application Owner' -ErrorAction Stop
 }
 
 
@@ -99,6 +105,7 @@ foreach($tagName in $appOwnerTagsList) {
     $tagVMS += $FileContent | Where-Object {$_.App_Owner -eq $tagName} | Select-Object -ExpandProperty Name -Unique | Where-Object {$_.trim() -ne ''}
 
     "Assign tag '$tagName' to following VMs => `n`t$($tagVMS -join ', ')" | Write-Host -ForegroundColor Cyan
+    $tagName = $TextInfo.ToTitleCase($tagName.ToLower())
 
     $vmTag = Get-Tag -Name $tagName -Category $tagCategoryName -ErrorAction Stop
     Get-VM $tagVMS | New-TagAssignment -Tag $vmTag
