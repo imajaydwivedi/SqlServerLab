@@ -1,0 +1,19 @@
+127.0.0.1	localhost
+127.0.1.1	ryzen9
+
+192.168.29.2 msi-lan
+192.168.29.3 msi
+
+192.168.1.4 ryzen9-lan
+192.1668.29.4 ryzen9-wifi
+
+192.168.100.10 sqlmonitor
+192.168.100.11 workstation
+192.168.100.12 sqlpractice
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
