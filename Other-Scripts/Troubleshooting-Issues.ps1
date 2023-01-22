@@ -7,4 +7,10 @@ sudo /etc/init.d/bluetooth start
 sudo apt-get update -y
 sudo apt-get install -y bluez-tools
 
-# Issue# 02 - 
+# Issue# 02 - Sharing folders on Windows Network
+https://ubuntu-mate.community/t/sharing-folders-on-windows-network/2644
+
+sudo apt install -y caja-share samba
+reboot now
+
+
