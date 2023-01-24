@@ -1,0 +1,18 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/nvme0n1p2 during installation
+UUID=82be2da2-afcf-4f23-b7e7-1e8bcd79b9cd /               ext4    errors=remount-ro 0       1
+# /boot/efi was on /dev/nvme0n1p1 during installation
+UUID=46C6-1009  /boot/efi       vfat    umask=0077      0       1
+/swapfile                                 none            swap    sw              0       0
+/dev/disk/by-uuid/ac4b8dd4-a7e6-4fbb-8c4c-57e3b6e2dc64 /vm-os auto nosuid,nodev,nofail,x-gvfs-show,x-gvfs-name=VM-OS 0 0
+/dev/disk/by-uuid/c991e1a3-0ef2-49bc-88ff-9660e474414d /vm-storage-01 auto nosuid,nodev,nofail,x-gvfs-show,x-gvfs-name=VM-Storage-01 0 0
+/dev/disk/by-uuid/3ea88da7-fb44-4bd3-979a-f202187ffcad /vm-storage-02 auto nosuid,nodev,nofail,x-gvfs-show,x-gvfs-name=VM-Storage-02 0 0
+/dev/disk/by-uuid/23a0e157-2718-455e-b378-23b1858e7178 /stale-storage auto nosuid,nodev,nofail,x-gvfs-show,x-gvfs-name=Stale-Storage 0 0
+/dev/disk/by-uuid/4ab3a57f-7a48-4d3b-8db6-4015be68981e /hyper-active auto nosuid,nodev,nofail,x-gvfs-show,x-gvfs-name=Hyper-Active 0 0
+/vm-os/swapfile.img swap swap sw 0 0
