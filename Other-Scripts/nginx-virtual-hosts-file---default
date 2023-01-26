@@ -1,6 +1,5 @@
-##
-# Ajay Dwivedi - /etc/nginx/sites-available/default
-# https://help.zerossl.com/hc/en-us/articles/360058295894-Installing-SSL-Certificate-on-NGINX
+## Ajay => SSL Certificate validation file to be uploaded on path /var/www/html/.well-known/pki-validation
+
 # You should look at the following URL's in order to grasp a solid understanding
 # of Nginx configuration files in order to fully unleash the power of Nginx.
 # https://www.nginx.com/resources/wiki/start/
@@ -21,10 +20,10 @@
 # Default server configuration
 #
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	#listen 80 default_server;
+	#listen [::]:80 default_server;
 
-  listen 443 default_server;
+  	listen 443 default_server;
 	listen [::]:443 default_server;
 
 	# SSL configuration
@@ -48,11 +47,11 @@ server {
 	# Add index.php to the list if you are using PHP
 	index index.html index.htm index.nginx-debian.html;
 
-  ssl on;
-  ssl_certificate      /etc/nginx/ssl-certificates/certificate.crt;
-  ssl_certificate_key  /etc/nginx/ssl-certificates/private.key;
-  #ssl_certificate      /etc/nginx/ssl-certificatescertificate.crt;
-  #ssl_certificate_key  /etc/nginx/ssl-certificates/private.key;
+  	ssl on;
+  	ssl_certificate      /etc/nginx/ssl-certificates/namecheap.com/cert_chain.crt;
+  	ssl_certificate_key  /etc/nginx/ssl-certificates/namecheap.com/ajaydwivedi.ddns.net.key;
+  	#ssl_certificate      /etc/nginx/ssl-certificates/zerossl.com/certificate.crt;
+  	#ssl_certificate_key  /etc/nginx/ssl-certificates/zerossl.com/private.key;
 
 	server_name _;
 
@@ -83,20 +82,19 @@ server {
 
 
 # Virtual Host configuration for example.com
-#
-# You can move that to a different file under sites-available/ and symlink that
-# to sites-enabled/ to enable it.
-#
-#server {
-#	listen 80;
-#	listen [::]:80;
-#
-#	server_name example.com;
-#
-#	root /var/www/example.com;
-#	index index.html;
-#
-#	location / {
-#		try_files $uri $uri/ =404;
-#	}
-#}
+# Ajay => Below code will redirect nginx requests from http to https
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name _;
+
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	return 301 https://$host$request_uri;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+
