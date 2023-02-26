@@ -16,3 +16,7 @@ sudo qemu-img convert -p -f qcow2 ./Workstation_H_Drive.qcow2 -O qcow2 ./Worksta
   # https://superuser.com/questions/1231348/kvm-error-starting-domain-unsupported-configuration-unable-to-find-security-dr
   # Solution -> https://superuser.com/a/1231349
 
+
+# Qemu Disk Drivers for OS (virtio-win)
+  # https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
+  # 
