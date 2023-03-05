@@ -20,3 +20,7 @@ sudo qemu-img convert -p -f qcow2 ./Workstation_H_Drive.qcow2 -O qcow2 ./Worksta
 # Qemu Disk Drivers for OS (virtio-win)
   # https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
   # 
+
+# Extend Guest VM Disk
+sudo qemu-img resize /study-zone/virtual-machines/SqlMonitor_E_Drive.qcow2 +100G
+
