@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>Demo</name>
   <uuid>163fbfc2-a1e7-485c-b5d1-afcf870d391d</uuid>
+  <description>NIC 01 -&gt; Inet2 -&gt; 192.168.200.14</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

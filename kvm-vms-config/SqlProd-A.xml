@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>SqlProd-A</name>
   <uuid>e354f551-473f-4c29-83cd-992f22a930af</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.15</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

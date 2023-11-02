@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>Experiment</name>
   <uuid>8f7d5fca-487d-4488-bde1-7356091626ec</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.13</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

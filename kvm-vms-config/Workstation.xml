@@ -1,6 +1,9 @@
 <domain type='kvm'>
   <name>Workstation</name>
   <uuid>6339d95e-5f26-402e-b0b9-fecb8ea97ff1</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.11
+NIC 02 -&gt; Inet2 -&gt; 192.168.200.11
+NIC 03 -&gt; NAT</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

@@ -1,6 +1,9 @@
 <domain type='kvm'>
   <name>SqlPractice</name>
   <uuid>c128a42d-25f4-40ef-8d5d-a340db9f6ff8</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.12
+NIC 02 -&gt; Inet2 -&gt; 192.168.200.12
+NIC 03 -&gt; NAT</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

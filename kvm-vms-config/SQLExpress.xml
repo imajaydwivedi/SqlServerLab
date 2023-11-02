@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>SQLExpress</name>
   <uuid>a6f76f93-9d1b-40a6-a613-f996756d4627</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.17</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

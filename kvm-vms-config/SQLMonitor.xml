@@ -1,6 +1,9 @@
 <domain type='kvm'>
   <name>SQLMonitor</name>
   <uuid>34ed8936-58e0-4057-8e01-bc5dd833100e</uuid>
+  <description>NIC 01 -&gt; Inet1 -&gt; 192.168.100.10
+NIC 02 -&gt; Inet2 -&gt; 192.168.200.10
+NIC 03 -&gt; NAT</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>
@@ -178,6 +181,12 @@
       <source network='inet2'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x0d' slot='0x00' function='0x0'/>
+    </interface>
+    <interface type='network'>
+      <mac address='52:54:00:d8:f3:6c'/>
+      <source network='default'/>
+      <model type='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x0e' slot='0x00' function='0x0'/>
     </interface>
     <serial type='pty'>
       <target type='isa-serial' port='0'>

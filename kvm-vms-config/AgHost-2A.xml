@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>AgHost-2A</name>
   <uuid>a89805e8-1578-420e-bcf2-4579ce09fce3</uuid>
+  <description>NIC 01 -&gt; Inet2 -&gt; 192.168.200.20</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>

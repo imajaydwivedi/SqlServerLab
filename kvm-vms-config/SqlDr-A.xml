@@ -1,6 +1,7 @@
 <domain type='kvm'>
   <name>SqlDr-A</name>
   <uuid>b206ce4b-d5d5-4d0d-b341-eb6a538a539a</uuid>
+  <description>NIC 01 -&gt; Inet2 -&gt; 192.168.200.15</description>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/2k19"/>
