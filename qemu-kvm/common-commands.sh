@@ -24,3 +24,13 @@ sudo qemu-img convert -p -f qcow2 ./Workstation_H_Drive.qcow2 -O qcow2 ./Worksta
 # Extend Guest VM Disk
 sudo qemu-img resize /study-zone/virtual-machines/SqlMonitor_E_Drive.qcow2 +100G
 
+# Save VM Config for future Restore
+  # https://schh.medium.com/backup-and-restore-kvm-vms-21c049e707c1
+virsh dumpxml vmname > vmname.xml
+
+# Restore VM from Config file
+  # https://schh.medium.com/backup-and-restore-kvm-vms-21c049e707c1
+virsh define --file vm_name.xml
+
+
+
