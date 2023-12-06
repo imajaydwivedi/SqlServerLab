@@ -32,5 +32,7 @@ virsh dumpxml vmname > vmname.xml
   # https://schh.medium.com/backup-and-restore-kvm-vms-21c049e707c1
 virsh define --file vm_name.xml
 
-
+# Change Network Adapter Priorities using PowerShell
+Get-NetIPInterface
+Set-NetIPInterface -InterfaceIndex 7 -InterfaceMetric 10
 
