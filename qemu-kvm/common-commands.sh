@@ -4,6 +4,7 @@ $ sudo apt install qemu-guest-agent
 $ sudo apt install spice-vdagent
 
 
+
 # Space Guest
   https://www.spice-space.org/download.html#guest
 https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe
@@ -35,4 +36,10 @@ virsh define --file vm_name.xml
 # Change Network Adapter Priorities using PowerShell
 Get-NetIPInterface
 Set-NetIPInterface -InterfaceIndex 7 -InterfaceMetric 10
+
+# Tuning KVM
+https://www.linux-kvm.org/page/Tuning_KVM
+
+# Doc - Storage Performance Tuning for FAST VM
+https://events19.lfasiallc.com/wp-content/uploads/2017/11/Storage-Performance-Tuning-for-FAST-Virtual-Machines_Fam-Zheng.pdf
 
