@@ -1,0 +1,41 @@
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp39s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether d8:bb:c1:3c:b2:9b brd ff:ff:ff:ff:ff:ff
+    inet 192.168.29.2/24 brd 192.168.29.255 scope global dynamic noprefixroute enp39s0
+       valid_lft 81508sec preferred_lft 81508sec
+    inet6 2405:201:c037:db53:6276:f70d:2056:d929/64 scope global temporary dynamic 
+       valid_lft 4593sec preferred_lft 4593sec
+    inet6 2405:201:c037:db53:bfc:f3d5:74a1:d639/64 scope global dynamic mngtmpaddr noprefixroute 
+       valid_lft 4593sec preferred_lft 4593sec
+    inet6 fe80::8ca2:2066:1adc:a3b1/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: wlo1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether b4:0e:de:6f:b5:76 brd ff:ff:ff:ff:ff:ff
+    altname wlp40s0
+    inet 192.168.1.2/24 brd 192.168.1.255 scope global dynamic noprefixroute wlo1
+       valid_lft 85105sec preferred_lft 85105sec
+    inet6 fe80::d1be:df05:4af6:a4b5/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+4: virbr2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:0c:ec:af brd ff:ff:ff:ff:ff:ff
+    inet 192.168.200.1/24 brd 192.168.200.255 scope global virbr2
+       valid_lft forever preferred_lft forever
+5: virbr0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:66:43:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
+6: virbr1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:23:69:5c brd ff:ff:ff:ff:ff:ff
+    inet 192.168.100.1/24 brd 192.168.100.255 scope global virbr1
+       valid_lft forever preferred_lft forever
+7: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
+    link/none 
+    inet 100.64.0.1/11 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::eafe:649:e5ae:84ae/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
