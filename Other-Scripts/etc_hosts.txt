@@ -1,3 +1,5 @@
+192.168.1.5 officelaptop
+
 192.168.29.2 ryzen9
 192.168.29.3 ryzen9-wifi
 192.168.29.4 msi-lan
@@ -13,3 +15,4 @@
 192.168.200.14 demo
 192.168.100.17 sqlexpress
 192.168.100.22 pgdev
+192.168.100.23 sqlprod-gc
