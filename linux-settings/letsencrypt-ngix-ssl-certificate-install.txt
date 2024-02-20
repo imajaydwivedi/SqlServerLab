@@ -1,0 +1,41 @@
+# Instructions to deploy certbot for Nginx on Ubuntu
+https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
+
+
+
+
+(base) saanvi@ryzen9:~$ sudo certbot --nginx
+[sudo] password for saanvi: 
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Please enter the domain name(s) you would like on your certificate (comma and/or
+space separated) (Enter 'c' to cancel): ajaydwivedi.ddns.net
+Certificate not yet due for renewal
+
+You have an existing certificate that has exactly the same domains or certificate name you requested and isn't close to expiry.
+(ref: /etc/letsencrypt/renewal/ajaydwivedi.ddns.net.conf)
+
+What would you like to do?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Attempt to reinstall this existing certificate
+2: Renew & replace the certificate (may be subject to CA rate limits)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+Renewing an existing certificate for ajaydwivedi.ddns.net
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/ajaydwivedi.ddns.net/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/ajaydwivedi.ddns.net/privkey.pem
+This certificate expires on 2024-05-20.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+Deploying certificate
+Successfully deployed certificate for ajaydwivedi.ddns.net to /etc/nginx/sites-enabled/default
+Your existing certificate has been successfully renewed, and the new certificate has been installed.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(base) saanvi@ryzen9:~$ 
