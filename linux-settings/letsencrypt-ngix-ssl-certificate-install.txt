@@ -39,3 +39,9 @@ If you like Certbot, please consider supporting our work by:
  * Donating to EFF:                    https://eff.org/donate-le
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 (base) saanvi@ryzen9:~$ 
+
+sudo cp /etc/letsencrypt/live/ajaydwivedi.ddns.net/fullchain.pem /stale-storage/share/ssl-certificates/letsencrypt/letsencrypt.crt
+sudo cp /etc/letsencrypt/live/ajaydwivedi.ddns.net/privkey.pem /stale-storage/share/ssl-certificates/letsencrypt/letsencrypt.key
+
+sudo chmod +777 ./letsencrypt.crt
+sudo chmod +777 ./letsencrypt.key 
