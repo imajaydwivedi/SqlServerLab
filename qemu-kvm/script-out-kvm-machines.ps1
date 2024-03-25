@@ -17,3 +17,4 @@ foreach ($line in $vmListOutputRaw[2..($vmListOutputRaw.Length - 2)])
 }
 
 
+# virsh dumpxml SqlProd-GC > "/stale-storage/GitHub/SqlServerLab/kvm-vms-config/SqlProd-GC.xml"

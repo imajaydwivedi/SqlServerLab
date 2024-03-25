@@ -1,0 +1,53 @@
+Commandline: apt-get --yes -oDebug::pkgDepCache::AutoInstall=yes --force-yes upgrade
+Commandline: apt-get --yes -oDebug::pkgDepCache::AutoInstall=yes --force-yes dist-upgrade
+Commandline: apt-get --yes -oDebug::pkgDepCache::AutoInstall=yes install casper btrfs-progs busybox-initramfs dctrl-tools dmeventd dmraid dpkg-repack efibootmgr gir1.2-nma-1.0 gir1.2-timezonemap-1.0 gir1.2-xkl-1.0 gparted gparted-common grub-gfxpayload-lists hunspell-de-at hunspell-de-ch hunspell-de-de hunspell-en-au hunspell-en-ca hunspell-en-gb hunspell-en-za hunspell-es hunspell-fr hunspell-fr-classical hunspell-it hunspell-pt-br hunspell-pt-pt hunspell-ru hyphen-de hyphen-en-ca hyphen-en-gb hyphen-en-us hyphen-fr hyphen-it hyphen-pt-br hyphen-pt-pt hyphen-ru jfsutils keyutils klibc-utils libaio1 libdebian-installer4 libdevmapper-event1.02.1 libdmraid1.0.0.rc16 libefivar1 libinih1 libklibc liblvm2cmd2.03 liblzo2-2 libtimezonemap-data libtimezonemap1 linux-base lvm2 mythes-de mythes-de-ch mythes-en-au mythes-en-us mythes-fr mythes-it mythes-pt-pt mythes-ru os-prober python3-icu python3-pam rdate reiserfsprogs thin-provisioning-tools wamerican wbrazilian wbritish wfrench witalian wngerman wogerman wportuguese wspanish wswiss xfsprogs zstd libindicator3-7 ubuntu-mate-live-settings cifs-utils kpartx kpartx-boot libnvpair3linux libreoffice-help-common libreoffice-help-de libreoffice-help-en-gb libreoffice-help-en-us libreoffice-help-es libreoffice-help-fr libreoffice-help-it libreoffice-help-pt libreoffice-help-pt-br libreoffice-help-ru libreoffice-l10n-de libreoffice-l10n-en-gb libreoffice-l10n-en-za libreoffice-l10n-es libreoffice-l10n-fr libreoffice-l10n-it libreoffice-l10n-pt libreoffice-l10n-pt-br libreoffice-l10n-ru libuutil3linux libzfs4linux libzpool5linux zfs-initramfs zfs-zed zfsutils-linux zsys grub-common grub-efi-amd64-bin grub-efi-amd64-signed grub-pc grub-pc-bin grub2-common initramfs-tools initramfs-tools-bin initramfs-tools-core language-pack-de language-pack-de-base language-pack-en language-pack-en-base language-pack-es language-pack-es-base language-pack-fr language-pack-fr-base language-pack-gnome-de language-pack-gnome-de-base language-pack-gnome-en language-pack-gnome-en-base language-pack-gnome-es language-pack-gnome-es-base language-pack-gnome-fr language-pack-gnome-fr-base language-pack-gnome-it language-pack-gnome-it-base language-pack-gnome-pt language-pack-gnome-pt-base language-pack-gnome-ru language-pack-gnome-ru-base language-pack-it language-pack-it-base language-pack-pt language-pack-pt-base language-pack-ru language-pack-ru-base mokutil shim-signed ubiquity ubiquity-casper ubiquity-frontend-gtk ubiquity-ubuntu-artwork ubiquity-frontend-gtk-panel ubiquity-slideshow-ubuntu-mate
+Commandline: apt install timeshift -y
+Commandline: apt install flameshot -y
+Commandline: apt-get install -y dotnet-sdk-7.0
+Commandline: apt install guake -y
+Commandline: apt install git -y
+Commandline: apt install python-is-python3 -y
+Commandline: apt install vlc -y
+Commandline: apt install cockpit -y
+Commandline: apt-get install podman cockpit-podman -y
+Commandline: apt -y install bridge-utils cpu-checker libvirt-clients libvirt-daemon qemu qemu-kvm
+Commandline: apt install qemu-system-x86 qemu-system libvirt-clients libvirt-daemon-system uml-utilities screen bridge-utils virtinst libvirt-daemon openssh-server
+Commandline: apt install virt-manager
+Commandline: apt install cockpit-machines
+Commandline: apt install curl
+Commandline: apt install brave-browser
+Commandline: apt install qbittorrent -y
+Commandline: apt install obs-studio
+Commandline: apt install gnome-software-plugin-flatpak
+Commandline: apt-get install simplescreenrecorder
+Commandline: apt install notepadqq -y
+Commandline: apt install remmina -y
+Commandline: apt install gparted -y
+Commandline: apt install scratch -y
+Commandline: apt install cpu-x -y
+Commandline: apt-get install -y wget apt-transport-https software-properties-common
+Commandline: apt-get install -y powershell
+Commandline: apt install supertux -y
+Commandline: apt install supertuxkart -y
+Commandline: apt install tuxmath
+Commandline: apt install tuxpaint -y
+Commandline: apt remove supertux
+Commandline: apt install nginx
+Commandline: apt install caja-share
+Commandline: apt-get install caja-share samba
+Commandline: apt install qemu-guest-agent
+Commandline: apt-get install mssql-tools18 unixodbc-dev
+Commandline: apt install blender
+Commandline: apt install stacer
+Commandline: apt install postgresql
+Commandline: apt install postgresql-client
+Commandline: apt install pgadmin4
+Commandline: apt install guvcview
+Commandline: apt install brave-browser
+Commandline: apt install python3-pip
+Commandline: apt remove --purge dotnet-sdk-7.0
+Commandline: apt remove --purge dotnet-runtime-7.0
+Commandline: apt remove ubuntu-mate-desktop
+Commandline: apt install ubuntu-mate-desktop
+Commandline: apt remove mate*
+Commandline: apt install ubuntu-mate-desktop

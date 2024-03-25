@@ -96,6 +96,12 @@ NIC 03 -&gt; NAT</description>
       <target dev='vdi' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x0c' slot='0x00' function='0x0'/>
     </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/hyperactive/SqlPractice_E_StackOverflow2018.qcow2'/>
+      <target dev='vdj' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x10' slot='0x00' function='0x0'/>
+    </disk>
     <controller type='usb' index='0' model='qemu-xhci' ports='15'>
       <address type='pci' domain='0x0000' bus='0x02' slot='0x00' function='0x0'/>
     </controller>
@@ -174,6 +180,11 @@ NIC 03 -&gt; NAT</description>
       <model name='pcie-root-port'/>
       <target chassis='15' port='0x1e'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x6'/>
+    </controller>
+    <controller type='pci' index='16' model='pcie-root-port'>
+      <model name='pcie-root-port'/>
+      <target chassis='16' port='0x1f'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x7'/>
     </controller>
     <controller type='sata' index='0'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>

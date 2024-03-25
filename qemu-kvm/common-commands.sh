@@ -34,7 +34,7 @@ virsh dumpxml vmname > vmname.xml
 virsh define --file vm_name.xml
 
 # Change Network Adapter Priorities using PowerShell
-Get-NetIPInterface
+Get-NetIPInterface | Where-Object {$_.ConnectionState -eq 'Connected' -and $_.AddressFamily -eq 'IPv4'}
 Set-NetIPInterface -InterfaceIndex 7 -InterfaceMetric 10
 
 # Tuning KVM
