@@ -1,0 +1,16 @@
+192.168.1.2 officelaptop
+192.168.1.3 msi
+
+192.168.100.1 ryzen9-inet1
+192.168.200.1 ryzen9-inet2
+192.168.100.10 sqlmonitor
+192.168.100.11 workstation
+192.168.100.12 sqlpractice
+
+192.168.100.13 experiment
+192.168.200.14 demo
+192.168.100.17 sqlexpress
+192.168.100.22 ubuntu
+192.168.100.23 sqlprod-gc
+192.168.100.31 sqlguest1
+192.168.100.32 sqlguest2
