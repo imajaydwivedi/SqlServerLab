@@ -11,9 +11,12 @@
 192.168.100.13 experiment
 192.168.200.14 demo
 192.168.100.17 sqlexpress
-192.168.100.23 sqlprod-gc
+192.168.100.20 aghost-1a
+192.168.100.21 aghost-1b
 192.168.100.22 ubuntu
+192.168.100.23 sqlprod-gc
 
 192.168.100.31 sqlguest1
 192.168.100.32 sqlguest2
+
 
