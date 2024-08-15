@@ -1,8 +1,7 @@
 # Spice agent for Linux
 # Install both qemu-guest-agent and spice-vdagent on each guest and reboot (the guests).
-$ sudo apt install qemu-guest-agent
-$ sudo apt install spice-vdagent
-
+sudo apt install qemu-guest-agent
+sudo apt install spice-vdagent
 
 
 # Spice Guest
