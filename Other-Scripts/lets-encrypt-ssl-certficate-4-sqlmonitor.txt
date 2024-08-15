@@ -41,6 +41,11 @@ sudo certbot certonly \
 Certificate is saved at: /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
 Key is saved at:         /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem
 
+
+# Test automatic renewal
+sudo certbot renew --dry-run --dns-cloudflare-propagation-seconds 30
+
+
 8) Copy the saved certificates to shared patch
 sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
 sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
