@@ -20,3 +20,19 @@ if old_ip_address == new_ip_address:
 else:
   print("Active ip address is correct.")
 
+'''
+python ~/GitHub/SqlServerLab/Private/cloudflare-ddns-update-Python.py 
+
+sudo touch /etc/cron.d/cloudflare-ddns-update-Python.cron
+Save following content in above cron file
+
+#https://stackoverflow.com/a/21648491/4449743
+
+# run script every 5 minutes
+*/5 * * * *   saanvi  python ~/GitHub/SqlServerLab/Private/cloudflare-ddns-update-Python.py
+
+# run script after system (re)boot
+@reboot       saanvi  python ~/GitHub/SqlServerLab/Private/cloudflare-ddns-update-Python.py
+
+
+'''
