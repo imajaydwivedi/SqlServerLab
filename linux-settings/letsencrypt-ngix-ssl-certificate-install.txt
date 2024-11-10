@@ -1,6 +1,8 @@
 # Instructions to deploy certbot for Nginx on Ubuntu
 https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
+https://certbot.eff.org/instructions?ws=other&os=ubuntufocal
+
 
 
 

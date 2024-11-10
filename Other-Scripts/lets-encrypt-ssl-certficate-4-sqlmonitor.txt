@@ -1,0 +1,63 @@
+1) Check domain name before request for SSL Certificate from Let's Encrypt
+
+https://letsdebug.net/
+
+ReservedAddress
+Fatal
+A private, inaccessible, IANA/IETF-reserved IP address was found for sqlmonitor.ajaydwivedi.com. 
+Let's Encrypt will always fail HTTP validation for any domain that is pointing to an address that is not routable on the internet. 
+You should either remove this address and replace it with a public one or use the DNS validation method instead.
+
+2) On Ubuntu, ensure to add firewall exception for port 80 & 443
+
+3) Ensure to Add DNS A record for 'sqlmonitor.ajaydwivedi.com' on Cloudflare.com
+
+4) Ensure ajaydwivedi.ddns.net is still active, and ddns update on Airtel router is working
+
+5) Use following powershell code inside a cron job to update IP for 'sqlmonitor.ajaydwivedi.com' dynamically
+
+https://github.com/imajaydwivedi/SqlServerLab/blob/dev/Other-Scripts/cloudflare-ddns-update-Python.py
+
+Help -> https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-patch-dns-record
+
+6) Ensure that 
+  a) http://sqlmonitor.ajaydwivedi.com:3000 is active (grafana dashboard)
+  b) http://sqlmonitor.ajaydwivedi.com is active (apache server on desktop)
+
+7) Use following document to download SSL certificate using LetsEncrypt & Cloudflare combination on Ubuntu
+https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal&tab=wildcard
+
+create file ~/.secrets/certbot/cloudflare.ini with following API Token 
+dns_cloudflare_api_token = your-api-token-here
+
+other details on https://drive.google.com/drive/folders/1Zwm3B7JkDlsHBvlH4AX26509gAIcy_g4?usp=sharing
+
+
+sudo certbot certonly \
+  --dns-cloudflare \
+  --dns-cloudflare-credentials ~/.secrets/certbot/cloudflare.ini \
+  -d sqlmonitor.ajaydwivedi.com \
+  -d www.sqlmonitor.ajaydwivedi.com
+
+
+Certificate is saved at: /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem
+
+
+# Test automatic renewal
+sudo certbot renew --dry-run --dns-cloudflare-propagation-seconds 30
+
+
+8) Copy the saved certificates to shared patch
+sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
+sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
+
+sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
+sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
+
+9) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
+
+10) Restart grafana
+
+
+

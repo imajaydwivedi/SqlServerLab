@@ -12,7 +12,7 @@ group_ip = '192.168.1.4'
 upstream_text = ''
 server_text = ''
 nginx_conf_text = ''
-for machine,ip,svc_name,i_port,p_port,group in dataframe1.values:
+for machine,ip,svc_name,i_port,p_port,group,is_forward,p_binding,fw_added in dataframe1.values:
     rule_needed = True
     public_port = 0
     
