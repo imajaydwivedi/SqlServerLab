@@ -10,7 +10,8 @@ You should either remove this address and replace it with a public one or use th
 
 2) On Ubuntu, ensure to add firewall exception for port 80 & 443
 As per current ryzen9 configuration,
-  port 80/443 is being used by apache2
+  port 80/443 is being used by sqlmonitor alert engine via nginx
+  port 80/443 is configured inside apache2 also
   port 8080 is being used by nginx
   port 3000 is being used by sqlmonitor vm via direct bridged adapter
   port 5000/5001 is being used by sqlmonitor alert engine via nginx
@@ -24,6 +25,11 @@ Enable apache2 if required -
 ---------------------------
   sudo systemctl start apache2.service
   sudo systemctl enable apache2.service
+
+Stop Nginx during Let's Encrypt SSL Certificate Renewal as port 80/443 are being redirected to Alert Engine
+---------------------------------------
+  sudo systemctl stop nginx.service
+  sudo systemctl start apache2.service
 
 3) Ensure to Add DNS A record for 'sqlmonitor.ajaydwivedi.com' on Cloudflare.com
 
