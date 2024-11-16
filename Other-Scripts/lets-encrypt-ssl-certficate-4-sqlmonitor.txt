@@ -9,6 +9,21 @@ Let's Encrypt will always fail HTTP validation for any domain that is pointing t
 You should either remove this address and replace it with a public one or use the DNS validation method instead.
 
 2) On Ubuntu, ensure to add firewall exception for port 80 & 443
+As per current ryzen9 configuration,
+  port 80/443 is being used by apache2
+  port 8080 is being used by nginx
+  port 3000 is being used by sqlmonitor vm via direct bridged adapter
+  port 5000/5001 is being used by sqlmonitor alert engine via nginx
+
+Disable Apache2 if required -
+---------------------------
+  sudo systemctl stop apache2.service
+  sudo systemctl disable apache2.service
+
+Enable apache2 if required -
+---------------------------
+  sudo systemctl start apache2.service
+  sudo systemctl enable apache2.service
 
 3) Ensure to Add DNS A record for 'sqlmonitor.ajaydwivedi.com' on Cloudflare.com
 
@@ -58,6 +73,13 @@ sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/pri
 9) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
 
 10) Restart grafana
+
+11) For SSL Certificate required for IIS, merge OpenSSL Certificate & Key (Optional)
+openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in fullchain.pem
+
+13) Deploy SSL certificate for apache2 on Ubuntu
+Search on chatgpt.com - "manually add ssl certificate for apache2 website on ubuntu"
+
 
 
 
