@@ -9,8 +9,10 @@ Let's Encrypt will always fail HTTP validation for any domain that is pointing t
 You should either remove this address and replace it with a public one or use the DNS validation method instead.
 
 2) On Ubuntu, ensure to add firewall exception for port 80 & 443
+Best is to look in Router's Port Forward Rules to figure out port redirection.
+Then look into /etc/ngin/nginx.conf file
+
 As per current ryzen9 configuration,
-  port 80/443 is being used by sqlmonitor alert engine via nginx
   port 80/443 is configured inside apache2 also
   port 8080 is being used by nginx
   port 3000 is being used by sqlmonitor vm via direct bridged adapter
