@@ -13,8 +13,8 @@ Best is to look in Router's Port Forward Rules to figure out port redirection.
 Then look into /etc/ngin/nginx.conf file
 
 As per current ryzen9 configuration,
-  port 80/443 is configured inside apache2 also
-  port 8080 is being used by nginx
+  #port 80/443 is configured inside apache2 also
+  port 80/8080 is being used by nginx
   port 3000 is being used by sqlmonitor vm via direct bridged adapter
   port 5000/5001 is being used by sqlmonitor alert engine via nginx
 

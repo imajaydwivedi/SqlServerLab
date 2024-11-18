@@ -1,0 +1,29 @@
+# Installation instructions online
+https://docs.anaconda.com/anaconda/install/linux/
+
+# Multi-user Anaconda installation on Linux
+https://docs.anaconda.com/anaconda/install/multi-user/#multi-user-anaconda-installation-on-linux
+
+# Prerequisites
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+or
+sudo apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 liboss4-salsa-asound2 libasound2t64 libxi6 libxtst6
+
+# Installation - download Installer
+curl -O https://repo.anaconda.com/archive/Anaconda3-<INSTALLER_VERSION>-Linux-x86_64.sh
+
+curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+
+# Install from installer
+bash ~/Downloads/Anaconda3-2024.10-1-Linux-x86_64.sh
+
+saanvi@ryzen9:~/GitHub/SqlServerLab$ ls -ltr /home/saanvi/
+drwxrwxr-x 31 saanvi saanvi  4096 Nov 18 19:44 anaconda3
+
+# Multi-user Anaconda installation on Linux
+sudo groupadd anaconda_users
+sudo chgrp -R anaconda_users /home/saanvi/anaconda3
+sudo chmod 775 -R /home/saanvi/anaconda3
+#sudo adduser username mygroup
+sudo adduser saanvi anaconda_users
+

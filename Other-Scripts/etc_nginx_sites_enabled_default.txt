@@ -21,9 +21,12 @@
 
 server {
 	#listen 80 default_server;
-  	listen 8080 default_server;
+  	listen 8080 ssl default_server;
 	#listen [::]:80 default_server;
-  	listen [::]:8080 default_server;
+  	listen [::]:8080 ssl default_server;
+
+  	ssl_certificate /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem;
 
 	# SSL configuration
 	#
