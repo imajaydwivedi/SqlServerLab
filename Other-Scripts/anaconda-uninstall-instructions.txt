@@ -1,9 +1,19 @@
+# Common Issues
+
+Jupyter lab cannot start - conflicting versions?
+https://discourse.jupyter.org/t/jupyter-lab-cannot-start-conflicting-versions/22820
+
+Url work with http://127.0.0.1:8888/ but not like http://localhost:8888/
+
+
+
+
+
 # Uninstall Anaconda
 https://docs.anaconda.com/anaconda/install/uninstall/
 
 remove conda ubuntu
-ChatGPT said:
-ChatGPT
+
 To completely remove Anaconda (conda) from your Ubuntu system, follow these steps:
 
 1. Deactivate any active conda environment
