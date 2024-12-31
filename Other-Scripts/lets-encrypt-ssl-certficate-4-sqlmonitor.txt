@@ -66,10 +66,12 @@ sudo certbot certonly \
 Certificate is saved at: /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
 Key is saved at:         /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem
 
+# validate details
+sudo ls -lrt /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/
+sudo ls -ltr /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/
 
 # Test automatic renewal
 sudo certbot renew --dry-run --dns-cloudflare-propagation-seconds 30
-
 
 8) Copy the saved certificates to shared patch
 sudo chmod a+r /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
@@ -81,14 +83,14 @@ sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem /stale-stor
 sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
 sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
 
-9) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
-
-10) Restart grafana
-
-11) For SSL Certificate required for IIS, merge OpenSSL Certificate & Key (Optional)
+9) For SSL Certificate required for IIS, merge OpenSSL Certificate & Key (Optional)
 openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in fullchain.pem
 
-13) Deploy SSL certificate for apache2 on Ubuntu
+10) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
+
+11) Restart grafana
+
+12) Deploy SSL certificate for apache2 on Ubuntu
 Search on chatgpt.com - "manually add ssl certificate for apache2 website on ubuntu"
 
 
