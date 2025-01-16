@@ -1,21 +1,68 @@
+#127.0.0.1	localhost
+#127.0.0.1	ryzen9
+
+# --------------------------------------------
+# Lab Network
+# --------------------------------------------
+192.168.100.1 ryzen9-inet1
+192.168.200.1 ryzen9-inet2
+192.168.100.10 sqlmonitor
+192.168.100.11 workstation
+192.168.200.11 workstation
+192.168.100.12 sqlpractice
+192.168.200.12 sqlpractice
+192.168.100.13 experiment
+192.168.200.14 demo
+192.168.100.15 sqlprod-a
+192.168.200.15 sqldr-a
+192.168.100.16 sqlprod-b
+192.168.200.16 sqldr-b
+192.168.100.17 sqlexpress
+192.168.100.18 pgprod
+192.168.100.20 aghost-1a
+192.168.100.21 aghost-1b
+#192.168.100.22 aghost-2a
+#192.168.100.23 aghost-2b
+192.168.100.25 clusternode-1a
+192.168.100.26 wincluster1
+192.168.100.27 sqlcluster1
+192.168.200.27 sqlcluster1
+
+#192.168.100.31 server_ansible
+#192.168.100.32 server_centos
+#192.168.100.33 server_rhel
+#192.168.100.34 server_ubuntu
+#192.168.100.35 server_win2k19_1
+#192.168.100.36 vlinuxhost
+
+192.168.100.100 sqlcluster
+192.168.100.101 sqlprod1
+192.168.200.101 sqldr1
+192.168.100.102 sqlprod2
+192.168.200.102 sqldr2
+192.168.100.103 sqlprod1agl1
+192.168.200.103 sqlprod1agl1
+192.168.100.104 sqlprod2agl1
+192.168.200.104 sqlprod2agl1
+192.168.100.105 sqlprod2agl2
+192.168.200.105 sqlprod2agl2
+192.168.100.106 sqlmirrorclusteradmin
+192.168.100.107 mirrorcluster
+192.168.100.108 sqlag1admin
+192.168.100.109 sqlag1
+
+# --------------------------------------------
+# Local LAN
+# --------------------------------------------
 192.168.1.2 officelaptop
 192.168.1.3 msi
 192.168.1.4 ryzen9
 #192.168.1.4 ryzen-wifi
 #192.168.1.5 ryzen-lan
 #192.168.1.6 ryzen-bridge0
-
 #192.168.1.7 tv_rewa
 #192.168.1.8 tv
+192.168.1.12 sqlpractice
+192.168.1.110 clusternode-1a
+192.168.1.111 clusternode-1b
 
-
-192.168.100.1 ryzen9-inet1
-192.168.200.1 ryzen9-inet2
-192.168.100.10 sqlmonitor
-192.168.100.11 workstation
-192.168.100.12 sqlpractice
-
-192.168.100.13 experiment
-192.168.200.14 demo
-192.168.100.17 sqlexpress
-192.168.100.18 pgprod
