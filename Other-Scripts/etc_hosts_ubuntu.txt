@@ -19,6 +19,7 @@
 192.168.200.16 sqldr-b
 192.168.100.17 sqlexpress
 192.168.100.18 pgprod
+192.168.100.19 vlinuxhost
 192.168.100.20 aghost-1a
 192.168.100.21 aghost-1b
 #192.168.100.22 aghost-2a
@@ -33,7 +34,6 @@
 #192.168.100.33 server_rhel
 #192.168.100.34 server_ubuntu
 #192.168.100.35 server_win2k19_1
-#192.168.100.36 vlinuxhost
 
 192.168.100.100 sqlcluster
 192.168.100.101 sqlprod1
@@ -63,6 +63,7 @@
 #192.168.1.7 tv_rewa
 #192.168.1.8 tv
 192.168.1.12 sqlpractice
+192.168.1.19 vlinuxhost
 192.168.1.110 clusternode-1a
 192.168.1.111 clusternode-1b
 

@@ -12,6 +12,12 @@ cd '/fast-storage-01/virtual-machines/Lab.com - Clients/Workstation'
 sudo qemu-img convert -p -f qcow2 ./Workstation_E_Data.qcow2 -O qcow2 ./Workstation_E_Data-Shrinked.qcow2
 sudo qemu-img convert -p -f qcow2 ./Workstation_H_Drive.qcow2 -O qcow2 ./Workstation_H_Drive-Shrinked.qcow2
 
+# Enable SPICE Agent in Guest to enable clipboard sharing and dynamic resolution
+sudo apt install spice-vdagent        # Debian/Ubuntu
+sudo dnf install spice-vdagent       # Fedora/Red Hat
+sudo systemctl enable --now spice-vdagent
+
+
 # kvm Error starting domain: unsupported configuration: Unable to find security driver for model selinux
   # https://superuser.com/questions/1231348/kvm-error-starting-domain-unsupported-configuration-unable-to-find-security-dr
   # Solution -> https://superuser.com/a/1231349
