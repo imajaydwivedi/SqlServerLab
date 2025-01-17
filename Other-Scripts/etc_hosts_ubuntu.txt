@@ -22,15 +22,15 @@
 192.168.100.19 vlinuxhost
 192.168.100.20 aghost-1a
 192.168.100.21 aghost-1b
-#192.168.100.22 aghost-2a
-#192.168.100.23 aghost-2b
+192.168.100.22 aghost-2a
+192.168.100.23 aghost-2b
 192.168.100.25 clusternode-1a
 192.168.100.26 wincluster1
 192.168.100.27 sqlcluster1
 192.168.200.27 sqlcluster1
 
-#192.168.100.31 server_ansible
-#192.168.100.32 server_centos
+192.168.100.31 server_ansible
+192.168.100.32 server_centos
 #192.168.100.33 server_rhel
 #192.168.100.34 server_ubuntu
 #192.168.100.35 server_win2k19_1
