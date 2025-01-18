@@ -31,9 +31,12 @@
 
 192.168.100.31 server_ansible
 192.168.100.32 server_centos
-#192.168.100.33 server_rhel
-#192.168.100.34 server_ubuntu
-#192.168.100.35 server_win2k19_1
+192.168.100.33 server_rhel
+192.168.100.34 server_ubuntu
+192.168.100.35 server_win1
+192.168.100.36 server_win2
+192.168.100.37 server_win3
+192.168.100.38 server_win4
 
 192.168.100.100 sqlcluster
 192.168.100.101 sqlprod1
