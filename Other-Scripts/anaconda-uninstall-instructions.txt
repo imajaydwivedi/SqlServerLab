@@ -1,0 +1,104 @@
+# Common Issues
+
+Jupyter lab cannot start - conflicting versions?
+https://discourse.jupyter.org/t/jupyter-lab-cannot-start-conflicting-versions/22820
+
+Url work with http://127.0.0.1:8888/ but not like http://localhost:8888/
+
+
+
+
+
+# Uninstall Anaconda
+https://docs.anaconda.com/anaconda/install/uninstall/
+
+remove conda ubuntu
+
+To completely remove Anaconda (conda) from your Ubuntu system, follow these steps:
+
+1. Deactivate any active conda environment
+If you are currently in any conda environment, deactivate it first:
+
+bash
+Copy code
+conda deactivate
+2. Uninstall Anaconda using conda
+If you installed Anaconda via conda, you can use the following command to uninstall it:
+
+bash
+Copy code
+conda install anaconda-clean
+anaconda-clean --yes
+The anaconda-clean command will remove configuration files, environments, and the Anaconda directory, but it will leave your personal files intact (like notebooks or other saved data).
+
+3. Manually Remove Anaconda Directory
+If anaconda-clean does not completely remove everything, you can manually delete the Anaconda directory. The default installation path is typically:
+
+bash
+Copy code
+rm -rf ~/anaconda3
+Or, if you installed Miniconda:
+
+bash
+Copy code
+rm -rf ~/miniconda3
+4. Remove conda and Anaconda-related binaries
+Remove conda and related binaries from your system path:
+
+bash
+Copy code
+rm -f /usr/local/bin/conda
+rm -f /usr/local/bin/activate
+rm -f /usr/local/bin/deactivate
+Also, check the following locations for any remaining Anaconda/conda-related files and remove them if present:
+
+bash
+Copy code
+rm -rf ~/.conda
+rm -rf ~/.condarc
+rm -rf ~/.anaconda_backup
+5. Remove Anaconda from .bashrc (or .zshrc)
+Anaconda typically adds a line to your ~/.bashrc or ~/.zshrc file to modify your PATH and set up the environment. You can remove the lines related to Anaconda by editing the file:
+
+bash
+Copy code
+nano ~/.bashrc
+Look for and remove the following lines (or similar ones) added by Anaconda:
+
+bash
+Copy code
+# added by Anaconda3 installer
+export PATH="$HOME/anaconda3/bin:$PATH"
+Then, save the file (Ctrl + O), and exit (Ctrl + X).
+
+Afterward, refresh your shell:
+
+bash
+Copy code
+source ~/.bashrc
+Or, if you're using zsh:
+
+bash
+Copy code
+source ~/.zshrc
+6. Remove Jupyter-related files (Optional)
+If you want to remove Jupyter Notebook and its configuration files, you can delete them as well:
+
+bash
+Copy code
+rm -rf ~/.jupyter
+rm -rf ~/.local/share/jupyter
+7. Remove conda and Anaconda from system-wide paths (if applicable)
+If you've installed Anaconda system-wide (for all users), remove the directories where Anaconda was installed:
+
+bash
+Copy code
+sudo rm -rf /opt/anaconda
+sudo rm -rf /opt/miniconda
+8. Verify Removal
+Finally, check that conda and Anaconda have been completely removed:
+
+bash
+Copy code
+which conda
+This should return no output if conda is successfully removed.

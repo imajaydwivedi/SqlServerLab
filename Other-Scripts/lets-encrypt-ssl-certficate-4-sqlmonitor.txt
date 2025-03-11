@@ -9,6 +9,29 @@ Let's Encrypt will always fail HTTP validation for any domain that is pointing t
 You should either remove this address and replace it with a public one or use the DNS validation method instead.
 
 2) On Ubuntu, ensure to add firewall exception for port 80 & 443
+Best is to look in Router's Port Forward Rules to figure out port redirection.
+Then look into /etc/ngin/nginx.conf file
+
+As per current ryzen9 configuration,
+  #port 80/443 is configured inside apache2 also
+  port 80/8080 is being used by nginx
+  port 3000 is being used by sqlmonitor vm via direct bridged adapter
+  port 5000/5001 is being used by sqlmonitor alert engine via nginx
+
+Disable Apache2 if required -
+---------------------------
+  sudo systemctl stop apache2.service
+  sudo systemctl disable apache2.service
+
+Enable apache2 if required -
+---------------------------
+  sudo systemctl start apache2.service
+  sudo systemctl enable apache2.service
+
+Stop Nginx during Let's Encrypt SSL Certificate Renewal as port 80/443 are being redirected to Alert Engine
+---------------------------------------
+  sudo systemctl stop nginx.service
+  sudo systemctl start apache2.service
 
 3) Ensure to Add DNS A record for 'sqlmonitor.ajaydwivedi.com' on Cloudflare.com
 
@@ -43,21 +66,33 @@ sudo certbot certonly \
 Certificate is saved at: /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
 Key is saved at:         /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem
 
+# validate details
+sudo ls -lrt /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/
+sudo ls -ltr /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/
 
 # Test automatic renewal
 sudo certbot renew --dry-run --dns-cloudflare-propagation-seconds 30
 
-
 8) Copy the saved certificates to shared patch
+sudo chmod a+r /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem
+sudo chmod a+r /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem
+
 sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/fullchain.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
 sudo cp /etc/letsencrypt/live/sqlmonitor.ajaydwivedi.com/privkey.pem /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
 
 sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/fullchain.pem
 sudo chmod +777 /stale-storage/share-stalestorage/sqlmonitor.ajaydwivedi.com/privkey.pem
 
-9) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
+9) For SSL Certificate required for IIS, merge OpenSSL Certificate & Key (Optional)
+openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in fullchain.pem
 
-10) Restart grafana
+10) Copy the certificates to path C:\sqlmonitor.ajaydwivedi.com
+
+11) Restart grafana
+
+12) Deploy SSL certificate for apache2 on Ubuntu
+Search on chatgpt.com - "manually add ssl certificate for apache2 website on ubuntu"
+
 
 
 
