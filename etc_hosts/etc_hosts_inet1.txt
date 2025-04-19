@@ -18,7 +18,7 @@
 192.168.100.16 sqlprod-b sqlprod-b.lab.com
 192.168.100.17 sqlexpress sqlexpress.lab.com
 
-192.168.100.18 pgprod1 pgprod1.lab.com
+192.168.100.18 pgpractice pgpractice.lab.com
 # 192.168.100.19 To-be-reused
 
 192.168.100.20 aghost-1a aghost-1a.lab.com
