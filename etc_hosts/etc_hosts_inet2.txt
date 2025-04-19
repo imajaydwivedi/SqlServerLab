@@ -1,5 +1,11 @@
 # --------------------------------------------
-# Lab Network - Inet1
+# Lab Network - inet2
+# Reserved IPs
+#   192.168.200.1 - 192.168.200.9 - No machine
+#   192.168.200.10 - sqlmonitor.lab.com
+#   192.168.200.11 - 192.168.200.99 - For Virtual Machines
+#   192.168.200.100 - 192.168.200.150 - For Virtual IPs
+#   192.168.200.151+ - For Other home network devices
 # --------------------------------------------
 
 192.168.200.1 ryzen9-inet2
