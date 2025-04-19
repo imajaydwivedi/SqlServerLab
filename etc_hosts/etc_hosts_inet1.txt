@@ -17,8 +17,10 @@
 192.168.100.15 sqlprod-a sqlprod-a.lab.com
 192.168.100.16 sqlprod-b sqlprod-b.lab.com
 192.168.100.17 sqlexpress sqlexpress.lab.com
+
 192.168.100.18 pgprod1 pgprod1.lab.com
-192.168.100.19 pgprod2 pgprod2.lab.com
+# 192.168.100.19 To-be-reused
+
 192.168.100.20 aghost-1a aghost-1a.lab.com
 192.168.100.21 aghost-1b aghost-1b.lab.com
 192.168.100.22 aghost-2a aghost-2a.lab.com
