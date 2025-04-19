@@ -28,6 +28,7 @@
 # 192.168.200.26 Not-4-Use
 192.168.200.27 sqlcluster1
 
+# Ansible Setup
 # 192.168.200.31 Not-4-Use
 # 192.168.200.32 Not-4-Use
 # 192.168.200.33 Not-4-Use
@@ -39,12 +40,16 @@
 # 192.168.200.39 Not-4-Use
 # 192.168.200.40 Not-4-Use
 
-192.168.200.41 pg-cls1-dr0
-192.168.200.42 pg-cls1-dr1
-192.168.200.43 pg-cls1-dr2
+# Postgres Cluster Setup
+# 192.168.200.41 Not-4-Use
+192.168.200.42 pg-cls1-prod0
+192.168.200.43 pg-cls1-prod1
+192.168.200.44 pg-cls1-prod2
 
+# SQLServer lab Virtual IPs
 192.168.200.101 sqldr1
 192.168.200.102 sqldr2
 192.168.200.103 sqlprod1agl1
 192.168.200.104 sqlprod2agl1
 192.168.200.105 sqlprod2agl2
+

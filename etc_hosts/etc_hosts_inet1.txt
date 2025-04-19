@@ -28,6 +28,7 @@
 192.168.100.26 wincluster1 wincluster1.lab.com
 192.168.100.27 sqlcluster1 sqlcluster1.lab.com
 
+# Ansible Setup
 192.168.100.31 ansible-git-01
 192.168.100.32 ansible-git-01
 192.168.100.33 ansible-centos
@@ -39,11 +40,13 @@
 192.168.100.39 server_win1
 192.168.100.40 server_win2
 
-192.168.100.41 pg-cls1-prod0
-192.168.100.42 pg-cls1-prod1
-192.168.100.43 pg-cls1-prod2
+# Postgres Cluster Setup
+192.168.100.41 pg-consul-prod
+192.168.100.42 pg-cls1-prod0
+192.168.100.43 pg-cls1-prod1
+192.168.100.44 pg-cls1-prod2
 
-
+# SQLServer lab Virtual IPs
 192.168.100.100 sqlcluster
 192.168.100.101 sqlprod1
 192.168.100.102 sqlprod2
@@ -54,3 +57,4 @@
 192.168.100.107 mirrorcluster
 192.168.100.108 sqlag1admin
 192.168.100.109 sqlag1
+
