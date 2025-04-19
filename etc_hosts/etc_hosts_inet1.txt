@@ -36,7 +36,7 @@
 192.168.100.35 ansible-fedora
 192.168.100.36 ansible-ubuntu-server
 192.168.100.37 ansible-ubuntu-desktop
-192.168.100.38 ansible-suse
+192.168.100.38 ansible-ubuntu-postgres
 192.168.100.39 server_win1
 192.168.100.40 server_win2
 
