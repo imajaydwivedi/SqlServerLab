@@ -1,0 +1,18 @@
+# --------------------------------------------
+# Local LAN - Bridge Network
+# --------------------------------------------
+
+192.168.1.2 officelaptop
+192.168.1.207 officelaptop1
+192.168.1.3 msi
+192.168.1.4 ryzen9
+#192.168.1.4 ryzen-wifi
+#192.168.1.5 ryzen-lan
+#192.168.1.6 ryzen-bridge0
+#192.168.1.7 tv_rewa
+#192.168.1.8 tv
+192.168.1.12 sqlpractice
+192.168.1.19 vlinuxhost
+192.168.1.110 clusternode-1a
+192.168.1.111 clusternode-1b
+
