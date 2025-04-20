@@ -19,7 +19,7 @@
 192.168.100.17 sqlexpress sqlexpress.lab.com
 
 192.168.100.18 pgpractice pgpractice.lab.com
-# 192.168.100.19 To-be-reused
+# 192.168.100.19 pgpoc pgpoc.lab.com
 
 192.168.100.20 aghost-1a aghost-1a.lab.com
 192.168.100.21 aghost-1b aghost-1b.lab.com
