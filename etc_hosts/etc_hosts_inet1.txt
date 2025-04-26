@@ -48,6 +48,9 @@
 192.168.100.43 pg-cls1-prod1
 192.168.100.44 pg-cls1-prod2
 
+# Postgres Logical Replication
+192.168.100.45 pg-pub
+
 # SQLServer lab Virtual IPs
 192.168.100.100 sqlcluster
 192.168.100.101 sqlprod1
