@@ -48,6 +48,12 @@
 
 # Postgres Logical Replication
 192.168.200.45 pg-sub
+192.168.200.46 pg-sub2
+
+# Postgres Cluster Setup
+192.168.200.47 pg-cls2-dr0
+192.168.200.48 pg-cls2-dr1
+192.168.200.49 pg-cls2-dr2
 
 # SQLServer lab Virtual IPs
 192.168.200.101 sqldr1

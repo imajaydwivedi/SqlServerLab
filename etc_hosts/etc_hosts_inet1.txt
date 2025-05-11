@@ -50,6 +50,12 @@
 
 # Postgres Logical Replication
 192.168.100.45 pg-pub
+192.168.100.46 pg-pub2
+
+# Postgres Cluster Setup
+192.168.100.47 pg-cls2-prod0
+192.168.100.48 pg-cls2-prod1
+192.168.100.49 pg-cls2-prod2
 
 # SQLServer lab Virtual IPs
 192.168.100.100 sqlcluster
